@@ -13,70 +13,7 @@
 			<script type="text/javascript" src="../js/plugins.min.js"></script>
 			<script type="text/javascript" src="../js/perfect-scrollbar.min.js"></script>
 			<script type="text/javascript" src="../js/app_empleado.js"></script>
-			<!--<script type="text/javascript" src="../cordova.js"></script>-->
-			<script type="text/javascript" src="../js/PushNotification.js"></script>
-			<script type="text/javascript" src="../vibration.js"></script>
-			<script type="text/javascript" src="../notification.js"></script>
-			<script type="text/javascript" src="../js/background-mode.js"></script>
-			<script type="text/javascript">
-			document.addEventListener('deviceready', function () {
-					/*var pushNotification = window.plugins.pushNotification;
-
-					pushNotification.register(
-					    successHandler, 
-					    errorHandler, 
-					    {
-					        'senderID':'AIzaSyDygFc2MFOyCzldXMva-HhMZZQA9lW1-Yc',
-					        'ecb':'onNotificationGCM' // callback function
-					    }
-					);*/
-				    // Android customization
-				    cordova.plugins.backgroundMode.setDefaults({ text:''});
-				    // Enable background mode
-				    cordova.plugins.backgroundMode.enable();
-
-				    // Called when background mode has been activated
-				    cordova.plugins.backgroundMode.onactivate = function () {
-				        setTimeout(function () {
-				            // Modify the currently displayed notification
-				            cordova.plugins.backgroundMode.configure({
-				                text:''
-				            });
-				        }, 5000);
-				    }
-				}, false);
-				/*function successHandler(result) {
-				    alert('Success: '+ result);
-				}
-				function errorHandler(error) {
-				    alert('Error: '+ error);
-				}
-				function onNotificationGCM(e) {
-				    switch( e.event )
-			        {
-			            case 'registered':
-			                if ( e.regid.length > 0 )
-			                {
-			                    console.log("Regid " + e.regid);
-			                    alert('registration id = '+e.regid);
-			                }
-			            break;
-			 
-			            case 'message':
-			              // this is the actual push notification. its format depends on the data model from the push server
-			              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-			            break;
-			 
-			            case 'error':
-			              alert('GCM error = '+e.msg);
-			            break;
-			 
-			            default:
-			              alert('An unknown GCM event has occurred');
-			              break;
-			        }
-				}*/
-			</script>
+			<script type="text/javascript" src="../cordova.js"></script>
 			<link rel='shortcut icon' type='image/x-icon' href='images/logo.png') />
 			<link rel='stylesheet' href='../css/materialize.css'/>
 			<link rel='stylesheet' href='../css/materialize.min.css'/>

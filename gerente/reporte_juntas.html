@@ -13,26 +13,7 @@
 			<script type="text/javascript" src="../js/app_secretario.js"></script>
 			<script type="text/javascript" src="../js/plugins.min.js"></script>
 			<script type="text/javascript" src="../js/perfect-scrollbar.min.js"></script>
-			<!--<script type="text/javascript" src="../cordova.js"></script>-->
-			<script type="text/javascript" src="../js/background-mode.js"></script>
-			<script type="text/javascript">
-			document.addEventListener('deviceready', function () {
-			    // Android customization
-			    cordova.plugins.backgroundMode.setDefaults({ text:''});
-			    // Enable background mode
-			    cordova.plugins.backgroundMode.enable();
-
-			    // Called when background mode has been activated
-			    cordova.plugins.backgroundMode.onactivate = function () {
-			        setTimeout(function () {
-			            // Modify the currently displayed notification
-			            cordova.plugins.backgroundMode.configure({
-			                text:''
-			            });
-			        }, 5000);
-			    }
-			}, false);
-			</script>
+			<script type="text/javascript" src="../cordova.js"></script>
 			<link rel='shortcut icon' type='image/x-icon' href='images/logo.png') />
 			<link rel='stylesheet' href='../css/materialize.css'/>
 			<link rel='stylesheet' href='../css/materialize.min.css'/>
