@@ -5,6 +5,11 @@ var socket = io.connect(url_server);
 /* Controlador para secretario */
 var app = angular.module('secreto', [])
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../index.html'
+})
+
 app.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
@@ -164,7 +169,6 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
         delete tarea._id
         tarea.TARSTA = 'V';
         $http.put(url_server+"tarea/actualizar", tarea).success(function(response) {
-            alert(JSON.stringify(response))
             $().toastmessage('showSuccessToast', "Se ha enviado el entregable.");
             getTareaUnico(response.data._id)
         })

@@ -11,10 +11,24 @@
     <title>Iniciar Sesión en CARTES</title>
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <!-- bootstrap theme -->
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <!-- Custom styles -->
-    <link href="css/estilo.css" rel="stylesheet">
-    <link href="css/mdb.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='css/materialize.css'/>
+            <link rel='stylesheet' href='css/materialize.min.css'/>
+            <link rel='stylesheet' href='css/perfect-scrollbar.css'/>
+            <link rel='stylesheet' href='css/style.min.css'/>
+            <style type="text/css">
+                html,body {
+                    height: 100%;
+                }
+                
+                html {
+                    display: table;
+                    margin: auto;
+                }
+                body {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            </style>
     <!--link href="css/materialize.min.css" rel="stylesheet"-->
     <!--link href="css/style-responsive.css" rel="stylesheet" /-->
 
@@ -28,50 +42,51 @@
     <script type="text/javascript" src="js/angular.min.js"></script>
     <!-- Script de control -->
     <script type="text/javascript" src="js/rutas.js"></script>
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <!-- Material Design Bootstrap -->
-    <script type="text/javascript" src="js/mdb.js"></script>
-    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
 </head>
 
-  <body class="login-img3-body" ng-controller="loginController">
-    <div class="container">
-        <br><br>
-        <div class="card-panel" style="opacity:0.8;">
-            <!--div class="alert alert-info">Hola</div-->
-            <form class="" ng-submit="login()">        
-                <div class="login-wrap">
-                    <p class="login-img text-center" style="font-size:45pt;">C A R T E S</p>
-                    <div class="input-field">
-                        <i class="icon-user prefix"></i>
-                        <input type="text" class="form-control validate" placeholder="RFC de la empresa" autofocus="on" ng-model="datos.EMPRFC" required>
-                    </div>
-                    <br>
-                    <div class="input-field">
-                        <i class="icon-phone prefix"></i>
-                        <!--input type="number" class="form-control validate" placeholder="Celular" autofocus="on" ng-model="datos.celular" required-->
-                        <input type="number" class="form-control validate" placeholder="Celular" autofocus="on" ng-model="datos.EMPCEE" required>
-                    </div>
-                    <br>
-                    <div class="input-field">
-                        <i class="icon-lock prefix"></i>
-                        <!--input type="password" class="form-control validate" placeholder="Clave de Acceso" ng-model="datos.clave" required-->
-                        <input type="password" class="form-control validate" placeholder="Clave de Acceso" ng-model="datos.EMPPAS" required>
-                    </div>
-                    <br>
-                    <!--label class="checkbox">
-                        <input type="checkbox" value="remember-me"> Remember me
-                        <span class="pull-right"> <a href="#"> Forgot Password?</a></span>
-                    </label-->
-                    <button class="btn btn-primary btn-lg btn-block" type="submit">Entrar</button><br>
-                    <div id="msjError"></div>
-                    <span class="pull-center"> <a href="#"> Olvidé mi Contraseña</a></span>
-                    <!--button class="btn btn-info btn-lg btn-block" type="submit">Signup</button-->
+  <body class="cyan" ng-controller="loginController">
+    <div id="login-page" class="row" ng-controller='loginController'>
+          <div id="error"></div>
+            <div class="col s12 z-depth-4 card-panel">
+              <form class="login-form" ng-submit='login()'>
+                <div class="row">
+                  <div class="input-field col s12 center">
+                    <img src="images/login-logo.png" alt="" class="circle responsive-img valign profile-image-login">
+                    <p class="center login-form-text">CARTES</p>
+                  </div>
                 </div>
-          </form>
-        </div>
-    </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="mdi-communication-vpn-key prefix"></i>
+                    <input id="empresa" ng-model='datos.EMPRFC' type="text" required>
+                    <label for="empresa" class="center-align">RFC de la empresa</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="mdi-social-person-outline prefix"></i>
+                    <input id="username" ng-model='datos.EMPCEE' type="text" required>
+                    <label for="username" class="center-align">Celular</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="mdi-action-lock-outline prefix"></i>
+                    <input id="password" ng-model='datos.EMPPAS' required type="password">
+                    <label for="password">Clave</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="submit" value="Entrar" class="btn waves-effect waves-light col s12">
+                  </div>
+                </div>
+
+              </form>
+            </div>
+          </div>
 
   </body>
 </html>

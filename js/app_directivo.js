@@ -11,6 +11,10 @@ $(document).on("click","#entregablebtn", function(){
     $("#entregable").openModal()// Abrimos la ventana
 });
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../index.html'
+})
 
 app.directive('fileModel', ['$parse', function ($parse) {
     return {

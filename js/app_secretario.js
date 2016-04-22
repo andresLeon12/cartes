@@ -17,7 +17,7 @@ $(document).on("click","#eliminar", function(){
 });*/
 
 // Logout
-$(".logout").click(function(){
+$(document).on("click", ".logout", function(){
     localStorage.removeItem("usuario")
     window.location.href = '../index.html'
 })

@@ -117,21 +117,21 @@
                     </div>
                     <div class="card-reveal">
                         <div ng-if='bloqueado=="false"'>
-	    				<span class="card-title grey-text text-darken-4">No puedes subir tu entregable hasta que las tareas de las cuales depende ésta tarea sean terminadas.<i class='mdi-navigation-close right'></i></span>
+	    				<span class="card-title grey-text text-darken-4">No puedes subir tu entregable hasta que las tareas de las cuales depende ésta tarea sean terminadas.<i class='mdi-remove right'></i></span>
 	    			</div>
 	    			<div ng-if='tarea.ACUSTA=="No iniciada"'>
-	    				<span class="card-title grey-text text-darken-4">No puedes subir tu entregable hasta que no inicias la tarea.<i class='mdi-navigation-close right'></i></span>
+	    				<span class="card-title grey-text text-darken-4">No puedes subir tu entregable hasta que no inicias la tarea.<i class='icon-remove right'></i></span>
 	    			</div>
 	    			<div ng-if='tarea.TARSTA=="T"'>
-	    				<span class="card-title grey-text text-darken-4">La tarea ya esta terminada.<i class='mdi-navigation-close right'></i></span>
+	    				<span class="card-title grey-text text-darken-4">La tarea ya esta terminada.<i class='icon-remove right'></i></span>
 	    				<br>
 	    			</div>
 	    			<div ng-if='tarea.TARSTA=="V"'>
-	    				<span class="card-title grey-text text-darken-4">La tarea está en progreso de validación.<i class='mdi-navigation-close right'></i></span>
+	    				<span class="card-title grey-text text-darken-4">La tarea está en progreso de validación.<i class='icon-remove right'></i></span>
 	    				<br>
 	    			</div>
 	    			<div ng-if='bloqueado=="true" && tarea.TARSTA=="P"'>
-	      			<span class="card-title grey-text text-darken-4">Subir entregable<i class='mdi-navigation-close right'></i></span>
+	      			<span class="card-title grey-text text-darken-4">Subir entregable<i class='icon-remove right'></i></span>
 	      			<form class="form-horizontal" role="form"  ng-submit= "entregable()">
 	      				<div class="form-group">
 							<label for="ACUCJU">URL de archivo</label>
