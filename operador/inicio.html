@@ -29,7 +29,6 @@
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="tareas">
             <li class="mdl-menu__item" ng-repeat="tarea in tareas"><a href="tarea.html?id={{tarea._id}}"> {{tarea.TARDES}} <br> <span>Tienes {{tarea.TARCAN}} días para terminar esta tarea.</span> </a></li>
             <li class="mdl-menu__item" ng-if="tareas.length == 0">No tienes tareas asignados</li>
-            <li class="mdl-menu__item all" ng-if="tareas.length > 0"><a href='tareas.html'>Ver todos</a></li>
           </ul>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">

@@ -607,7 +607,7 @@ a img{
 }
 
 .notificaciones-ul {
-  max-height: 420px;
+  max-height: 240px;
   max-width: 420px;
   overflow: auto;
 }

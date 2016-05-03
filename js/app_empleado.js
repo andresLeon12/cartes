@@ -256,7 +256,7 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
             };
             notification.MaterialSnackbar.showSnackbar(data);
             //$().toastmessage('showSuccessToast', "Se ha iniciado la tarea.");
-            getTareaUnico(response.data._id)
+            //getTareaUnico(response.data._id)
             location.reload();
         })
     }
