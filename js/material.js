@@ -3153,7 +3153,7 @@ MaterialLayout.prototype.Constant_ = {
     MAX_WIDTH: '(max-width: 1024px)',
     TAB_SCROLL_PIXELS: 100,
     RESIZE_TIMEOUT: 100,
-    MENU_ICON: '&#xE5D2;',
+    MENU_ICON: 'Menú',
     CHEVRON_LEFT: 'chevron_left',
     CHEVRON_RIGHT: 'chevron_right'
 };

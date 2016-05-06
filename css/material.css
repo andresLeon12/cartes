@@ -7198,7 +7198,7 @@ input.mdl-button[type="submit"] {
   display: block;
   position: absolute;
   height: 48px;
-  width: 48px;
+  width: 54px;
   border: 0;
   -webkit-flex-shrink: 0;
       -ms-flex-negative: 0;
@@ -7206,7 +7206,7 @@ input.mdl-button[type="submit"] {
   overflow: hidden;
   text-align: center;
   cursor: pointer;
-  font-size: 26px;
+  font-size: 14px;
   line-height: 50px;
   font-family: Helvetica, Arial, sans-serif;
   margin: 10px 12px;
