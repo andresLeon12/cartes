@@ -364,6 +364,34 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             }
         });
     }
+    $scope.terminarAcuerdo = function(){
+        acuerdo = $scope.acuerdo
+        acuerdo.ACUSTA = "T";
+        //$scope.acuerdoN.ACUST1 = 0;
+        //$scope.acuerdoN.ACUST2 = 0;
+        //$scope.acuerdoN.ACUPUN = idO;
+        var acuerdo = acuerdo;
+        acuerdo.id = acuerdo._id; // Pasamos la _id a id para mayor comodidad del lado del servidor a manejar el dato.
+        delete acuerdo._id; // Lo borramos para evitar posibles intentos de modificación de un ID en la base de datos
+
+        // Hacemos una petición PUT para hacer el update a un documento de la base de datos.
+        $http.put(url_server+"acuerdo/actualizar", acuerdo).success(function(response) {
+            if(response.status === "OK") {
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Bien, has terminado este acuerdo",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
+                $(".card-reveal").fadeOut()
+                $scope.tarea = {}; // Limpiamos el scope
+                //getJuntaUnica(); // Actualizamos la lista de ToDo's
+                getAcuerdoUnico();
+                location.reload()
+            }
+        });
+    }
     $scope.rechazar_tarea = function(tarea) {
         $scope.tarea_a_rechazar = tarea;
         $("#rechazar").openModal()
@@ -428,7 +456,7 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             	$scope.tareas = response.data;
             	for (var i=0;i<$scope.tareas.length;i++){
                     var dep = $scope.tareas[i].ACUSTA;
-                    if ((tarea_dep.ACUSTA == 'No iniciada' || tarea_dep.ACUSTA == 'En progreso') ) {
+                    if ((tarea_dep.ACUSTA != 'T') ) {
                     	$scope.bloqueado = "false";
                     };
                 }

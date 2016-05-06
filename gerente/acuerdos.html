@@ -97,7 +97,7 @@
             <i class="fa fa-bell"></i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="acuerdos">
-            <li class="mdl-menu__item" ng-repeat="acuerdo in acuerdos"><a href="acuerdo.html?id={{acuerdo._id}}"> {{acuerdo.ACUDES}} </a></li>
+            <li class="mdl-menu__item" ng-repeat="acuerdo in acuerdos" ><a href="acuerdo.html?id={{acuerdo._id}}"> {{acuerdo.ACUDES}} </a></li>
             <li class="mdl-menu__item" ng-if="acuerdos.length == 0">No tienes acuerdos asignados</li>
             <li class="mdl-menu__item all" ng-if="acuerdos.length > 0"><a href='acuerdos.html'>Ver todos</a></li>
           </ul>

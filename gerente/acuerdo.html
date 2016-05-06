@@ -206,6 +206,10 @@
 									<a href="#" class="btn teal white-text right" id="terminarbtn" ng-if="acuerdo.ACUSTA=='A'">
 										He terminado de asignar tareas
 									</a>
+                  <a href="#" class="btn teal white-text right" ng-click="terminarAcuerdo()" ng-if="bloqueado && acuerdo.ACUSTA!='T'">
+                    Terminar acuerdo
+                  </a>
+                  <div class="alert alert-success" ng-if="acuerdo.ACUSTA='T'">Acuerdo terminado</div>
 								</div>
                         	</div>
                         </div>
