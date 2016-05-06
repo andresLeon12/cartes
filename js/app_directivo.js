@@ -221,6 +221,7 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             };
             notification.MaterialSnackbar.showSnackbar(data);
             getTareas($scope.acuerdo)
+            location.reload()
         }
     });
 
