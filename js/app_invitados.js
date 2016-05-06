@@ -27,8 +27,17 @@ app.controller('invitadosController', function($scope, $http){
 	//var empresa = localStorage.getItem("empresa")
 	//var empresa = $scope.usuario.empresa
     var empresa = $scope.usuario.EMPIDC;
-	   
-    $scope.nuevoInvitado = function(idEmp,idJunta,ne,nj) {
+	
+    getEmpresa();
+        function getEmpresa(){
+            $http.get(url_server+"empresa/find/"+empresa).success(function(response) {
+                if(response.type) { // Si nos devuelve un OK la API...
+                    $scope.empresa = response.data[0];
+                    $scope.urlFinal = url_server+"Empresas/"+$scope.empresa.pathImg; 
+                }
+            })
+        }
+    $scope.nuevoInvitado = function(idEmp,idJunta,ne,nj,fec,hor) {
         //alert("nuevoInvitado");
         /*$scope.juntaN.JUTHOR = getHora();*/
         var datosInvit = {
@@ -37,7 +46,9 @@ app.controller('invitadosController', function($scope, $http){
             INVJUN:idJunta,
             INVEMP:idEmp,
             INVJNO:nj,
-            INVEMN:ne
+            INVEMN:ne,
+            INVFEC:fec,
+            INVHOR:hor
         }
 
         if(localStorage.getItem("invitados") === null){
@@ -46,7 +57,13 @@ app.controller('invitadosController', function($scope, $http){
             invt.push(datosInvit);
             $scope.allInv = invt;
             //alert(invt)
-            $().toastmessage('showSuccessToast', "Empleado Agregado a la lista de invitados");
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Empleado Agregado a la lista de invitados",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            //$().toastmessage('showSuccessToast', "Empleado Agregado a la lista de invitados");
             localStorage.setItem("invitados", JSON.stringify(invt));
         }else{
             //alert("2 ,");
@@ -57,7 +74,13 @@ app.controller('invitadosController', function($scope, $http){
             for(var i = 0 ; i < invt.length;i++){
                 if(invt[i].INVEMP == datosInvit.INVEMP){
                     //alert("lo encontro");
-                    $().toastmessage('showSuccessToast', "Ya existe el Empleado en la lista de invitados");
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Ya existe el Empleado en la lista de invitados",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+                    //$().toastmessage('showSuccessToast', "Ya existe el Empleado en la lista de invitados");
                     return;
                 }
             }
@@ -67,7 +90,13 @@ app.controller('invitadosController', function($scope, $http){
             $scope.allInv = invt;
             localStorage.removeItem("invitados");
             localStorage.setItem("invitados", JSON.stringify(invt));
-            $().toastmessage('showSuccessToast', "Empleado Agregado a la lista de invitados");
+            var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Empleado Agregado a la lista de invitados",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+            //$().toastmessage('showSuccessToast', "Empleado Agregado a la lista de invitados");
         }
         // Hacemos un POST a la API para dar de alta nuestro nuevo ToDo
         /*
@@ -131,7 +160,13 @@ app.controller('invitadosController', function($scope, $http){
         for (var i = 0; i < invitados.length; i++){
             socket.emit("nueva_junta", idJ, invitados[i].INVEMP, $scope.junta.JUNMOT);
         }
-        $().toastmessage('showSuccessToast', "Se enviaron las invitaciones");
+        var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Se enviaron las invitaciones",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+        //$().toastmessage('showSuccessToast', "Se enviaron las invitaciones");
         //localStorage.removeItem("invitados");
         $("#confirmacion").closeModal()// Abrimos la ventana
         //getJuntaUnica();
@@ -189,7 +224,13 @@ app.controller('invitadosController', function($scope, $http){
         for(var i = 0 ; i < invt.length;i++){
             if(invt[i].INVEMP == id){
                 //alert("lo encontro");
-                $().toastmessage('showSuccessToast', "Empleado eliminado de la lista de invitados");
+                var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Empleado eliminado de la lista de invitados",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Empleado eliminado de la lista de invitados");
                 invt.splice(i,1);
                 if(invt.length > 0){
                     $scope.allInv = invt;
@@ -220,7 +261,7 @@ app.controller('invitadosController', function($scope, $http){
         $http.delete(url_server+"invit/eliminar", { params : {identificador: id}}).success(function(response) {
             //console.log("function");
             if(response.status === "OK") { // Si la API nos devuelve un OK...
-                $().toastmessage('showSuccessToast', "Invitacion Eliminada para el Empleado");
+                //$().toastmessage('showSuccessToast', "Invitacion Eliminada para el Empleado");
                 //$('#'+id+"-Delete").modal('hide');
                 getInvitadosByJunta(); // Actualizamos la lista de ToDo's
             }

@@ -7,8 +7,9 @@
     <title>CARTES - Nueva Junta</title>
     <!-- Hojas de estilos -->
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
     <!-- Bootstrap core CSS -->
+    <link href="../../css/materialize.css" rel="stylesheet">
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="../../css/mdb.min.css" rel="stylesheet">
@@ -16,10 +17,8 @@
     <link href="../../css/style.css" rel="stylesheet">
     <!-- Toast -->
     <link href="../../css/jquery.toastmessage.css" rel="stylesheet">
-    <!-- Calendario -->
-    <link href="../../css/datepicker.css" rel="stylesheet">
-
-    <link rel='stylesheet' type='text/css'href='../../css/classic.time.css'/>
+    <link rel='stylesheet' type='text/css'href='../../css/material.css'/>
+    <link href="../../css/styles.css" rel="stylesheet">
 
     <!-- Scripts -->
     <!-- JQuery -->
@@ -37,37 +36,61 @@
     <script type="text/javascript" src="../../js/materialize.min.js"></script>
     <!-- Toast -->
     <script type="text/javascript" src="../../js/jquery.toastmessage.js"></script>
-    <!-- Calendario -->
-    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
-
-    <script type='text/javascript'src='../../js/picker.time.js'></script>
     <script type="text/javascript" src="../../cordova.js"></script>
+    <script type="text/javascript" src="../../js/material.js"></script>
 </head>
 
 <body ng-controller='invitadosController' class="full-bg-img">
     <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a href="juntas_de_trabajo.html" class="btn-floating btn-large waves-effect waves-light red"><i class="icon-mail-reply"></i></a>
     </div-->
-    <div class="fixed-action-btn" style="bottom: -15px; right: 0px;">
-      <div class="alert alert-danger alertas">
-        <a href="juntas_de_trabajo.html" class="white-text"><i class="icon-mail-reply"></i> Volver a la página anterior</a>
-      </div>
-    </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" href="juntas_de_trabajo.html">
+      <i class="fa fa-mail-reply"></i>
+    </a>
+  </div>
     <!-- Intro image -->
-    <div id="config-color" style="background-color:white;">
-      <div class="verticalcenter text-center black-text">
-        <div class="animated flip">
-          <h5>Invitar a los Supervisores</h5>
-          <!--h4>{{empresa.nombre}}</h4>
-          <span>Crear Junta de Trabajo</span-->
-          <i id='log-config' class='icon-suitcase large'></i>
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
+        <div class="mdl-layout__header-row">
+          
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <!--<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">Acerca de</li>
+            <li class="mdl-menu__item">Contacto</li>
+            <li class="mdl-menu__item">Aviso de privacidad</li>
+          </ul>-->
         </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--grey mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="../img/user.png" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span class="mdl-typography--text-capitalize" style="width:80%;margin:8px;">Andrés León</span>
+            
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-typography--text-right">
+              <i class="material-icons" role="presentation">arrow_drop_down</i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="accbtn">
+              <li class="mdl-menu__item">{{empresa.CIANOM}}</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--white">
+          <a class="mdl-navigation__link" href="../inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="../juntas/juntas_de_trabajo.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Juntas</a>
+          <a class="mdl-navigation__link logout" href=""><i class="mdl-color-text--blue-grey-400 fa fa-sign-out" role="presentation"></i>&nbsp;&nbsp;Salir</a>
+        </nav>
       </div>
     </div>
+    <!--/.Navbar-->
     <!-- Contenido -->
     <section> 
         <div class="container">
-            <div class="space-30"></div>
             <div class="space-30"></div>
             <div class="space-30"></div>
             <div class="col-md-12">
@@ -84,43 +107,52 @@
                                 <p class="titulo"> Seleccionar a los invitados para la junta {{junta.JUNNUM}}</p>
                             </div>
                         </div>
-                        <div class="card-content">
-                            <!--div ng-if="junta.STATINV == 0"-->
-                            <div id="avisoOrdenByJunta"></div>
-                            <span class="black" ng-repeat="d in directivos|filter:busqueda">
-                               <p ng-repeat="p in puestos" ng-if="p._id == d.EMPPUE">
-                                    - {{d.EMPNOM}} - {{p.PUENOM}}
-                                    <!--div ng-if=""-->
-                                        <a href="#" ng-click="nuevoInvitado(d._id,junta._id,d.EMPNOM,junta.JUNMOT)">Agregar <i class="icon-plus"></i></a>
-                                    <!--/div-->
-                                </p>
-                            </span>
-                            <!--/div-->
-                            <hr>
-                            <div ng-if="allInv.length > 0">
-                                Invitados a la Junta {{junta.JUNNUM}}<br>
-                                <p class="black-text" ng-repeat="inv in allInv">
-                                    - {{inv.INVEMN}} <a href="#" ng-click="deleteInvitado(inv.INVEMP)">Eliminar de Invitados <i class="icon-trash"></i></a>
-                                </p>
-                                <div class="text-center">
-                                    <a href="#" id="confirmarInv" class="btn btn-primary waves-effect waves-light">Mandar Invitaciones</a>
-                                </div>
-                            </div>
+                        <div class="input-field" style="padding: 15px;">
+                          <i class="icon-search prefix"></i>
+                          <input id="icon_prefix" type="text" class="validate" ng-model='busqueda'>
+                          <label for="icon_prefix" class="teal-color">Buscar Junta de Trabajo</label>
+                        </div>
+                        <div id="avisoOrdenByJunta"></div>
+                        <ul class="collection lista_invitados">
+                            <li class="collection-item teal white-text">Empleados:</li>
+                            <li class="collection-item avatar" ng-repeat="d in directivos|filter:busqueda">
+                                <i class='circle fa fa-user'></i>
+                                <p>{{d.EMPNOM}}</p>
+                                <p ng-repeat="p in puestos" ng-if="p._id == d.EMPPUE" class="grey-text" style="font-size: 10px;"> {{p.PUENOM}}</p>
+                                <a href="#" class="btn btn-floating add-icon indigo secondary-content" ng-click="nuevoInvitado(d._id,junta._id,d.EMPNOM,junta.JUNMOT,junta.JUNFEC,junta.JUNHOR)"><i class="fa fa-plus"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="collection lista_invitados" ng-if="allInv.length > 0">
+                            <li class="collection-item red lighten-3 white-text">Lista temporal de invitados:</li>
+                            <li class="collection-item avatar" ng-repeat="inv in allInv">
+                                <i class='circle fa fa-user'></i>
+                                <h6>{{inv.INVEMN}}</h6>
+                                <a href="#" class="btn btn-floating add-icon red secondary-content" ng-click="deleteInvitado(inv.INVEMP)"><i class="fa fa-trash-o"></i></a>
+                            </li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="#" id="confirmarInv" class="btn btn-primary waves-effect waves-light">Mandar Invitaciones</a>
                         </div>
                     </div>
                     <div ng-if="junta.STATINV == 1">
-                        <div class="alert alert-info">Se ha Enviado la invitación</div>
-                        <div class="card-image">
-                            <div class="view overlay hm-white-slight z-depth-1">
-                                <p class="titulo">La Junta {{junta.JUNNUM}} ya tiene a sus invitados, para agregar nuevos invitados, debe de cancelar sta junta y volver a crear otra.</p>
+                        <!--<div class="alert alert-info">Se ha Enviado la invitación</div>-->
+                        <div class="alert alert-warning">
+                            <div class="">
+                                <p class="">La Junta {{junta.JUNNUM}} ya tiene a sus invitados, para agregar nuevos invitados, debe de cancelar esta junta y volver a crear otra.</p>
                             </div>
                         </div>
-                        <div ng-if="allInv.length > 0">
-                            Invitados a la Junta {{junta.JUNNUM}}<br>
-                            <p class="black-text" ng-repeat="inv in allInv">
-                                - {{inv.INVEMN}}
-                            </p>
+                        <div class="input-field" style="padding: 15px;">
+                          <i class="fa fa-search prefix"></i>
+                          <input id="icon_prefix" type="text" class="validate" ng-model='busqueda'>
+                          <label for="icon_prefix" class="teal-color">Buscar</label>
                         </div>
+                        <ul class="collection" ng-if="allInv.length > 0">
+                            <li class="collection-item teal white-text">Invitados:</li>
+                            <li class="collection-item avatar" ng-repeat="inv in allInv|filter:busqueda">
+                                <i class='circle fa fa-user'></i>
+                                <h6>{{inv.INVEMN}}</h6>
+                            </li>
+                        </ul>
                         <div class="text-center" ng-if="junta.STATINV == 1">
                             <a href="#" id="cancelarJunta" class="btn btn-danger waves-effect waves-light">Cancelar Junta</a>
                         </div>
@@ -132,7 +164,10 @@
         </div>
         <!--a href="#" class="btn btn-primary waves-effect waves-light" ng-click="prueba()">Prueba Socket</a-->
     </section>
-
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
     <div id="confirmacion" class="modal bottom-sheet">
         <div class="modal-content">
             <div class="row">
@@ -143,8 +178,8 @@
             <p>&iquest;Realmente desea enviar las invitaciones?</p>
         </div>
         <div class="modal-footer">
-            <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">No, Quiero verificar mis invitados otra vez</a><br>
-            <a href="#" class="wavs-effects wavs-green btn-flat" ng-click="enviarInvitaciones()"><i class="mdi-action-delete"></i>Si, Estoy seguro</a>
+            <a class=" modal-action modal-close wavs-effects wavs-green btn-flat">Cancelar</a>
+            <a class="wavs-effects wavs-green btn-flat" ng-click="enviarInvitaciones()">Si, Estoy seguro</a>
         </div>
     </div>
 

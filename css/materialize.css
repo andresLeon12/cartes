@@ -2570,7 +2570,7 @@ optgroup {
 /**
  * Remove most spacing between table cells.
  */
-table {
+/*table {
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -2578,7 +2578,7 @@ table {
 td,
 th {
   padding: 0;
-}
+}*/
 
 html {
   box-sizing: border-box;
@@ -2587,10 +2587,10 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
+/*
 ul {
   list-style-type: none;
-}
+}*/
 
 a {
   color: #039be5;
@@ -2610,7 +2610,7 @@ a {
 .valign-wrapper .valign {
   display: block;
 }
-
+/*
 ul {
   padding: 0;
 }
@@ -2618,7 +2618,7 @@ ul {
 ul li {
   list-style-type: none;
 }
-
+*/
 .clearfix {
   clear: both;
 }
@@ -2926,7 +2926,7 @@ footer.page-footer .footer-copyright {
   background-color: rgba(51, 51, 51, 0.08);
 }
 
-table, th, td {
+/*table, th, td {
   border: none;
 }
 
@@ -2970,8 +2970,8 @@ td, th {
   text-align: left;
   vertical-align: middle;
   border-radius: 2px;
-}
-
+}*/
+/*
 @media only screen and (max-width: 992px) {
   table.responsive-table {
     width: 100%;
@@ -2979,7 +2979,6 @@ td, th {
     border-spacing: 0;
     display: block;
     position: relative;
-    /* sort out borders */
   }
   table.responsive-table th,
   table.responsive-table td {
@@ -3043,7 +3042,7 @@ td, th {
     border-right: 1px solid #d0d0d0;
   }
 }
-
+*/
 .collection {
   margin: 0.5rem 0 1rem 0;
   border: 1px solid #e0e0e0;
@@ -3167,12 +3166,12 @@ span.badge.new {
 span.badge.new:after {
   content: " new";
 }
-
+/*
 nav ul a span.badge {
   position: static;
   margin-left: 4px;
   line-height: 0;
-}
+}*/
 
 .video-container {
   position: relative;
@@ -7300,7 +7299,7 @@ nav ul a span.badge {
     left: 100%;
   }
 }
-
+/*
 nav {
   color: #fff;
   background-color: #ee6e73;
@@ -7477,7 +7476,7 @@ nav .input-field label.active {
     height: 64px;
   }
 }
-
+*/
 @font-face {
   font-family: "Roboto";
   src: local(Roboto Thin), url("../font/roboto/Roboto-Thin.eot");
@@ -7957,7 +7956,7 @@ small {
     float: right;
   }
 }
-
+/*
 .tabs {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8018,7 +8017,7 @@ small {
   background-color: #f6b2b5;
   will-change: left, right;
 }
-
+*/
 .material-tooltip {
   padding: 10px 8px;
   font-size: 1rem;

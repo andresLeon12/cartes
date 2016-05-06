@@ -10,6 +10,9 @@ $(document).on("click","#dependencias", function(){
 $(document).on("click","#entregablebtn", function(){
     $("#entregable").openModal()// Abrimos la ventana
 });
+$(document).on("click","#terminarbtn", function(){
+    $("#aviso").openModal()// Abrimos la ventana
+});
 
 $(document).on("click", ".logout", function(){
     localStorage.removeItem("usuario")
@@ -63,9 +66,8 @@ app.service('fileUpload', ['$http', function ($http) {
         });
     }
 }]);
-
 app.controller('directivoController', ['$scope', '$http', 'fileUpload', function($scope, $http, fileUpload){
-	var usuario = localStorage.getItem("usuario")
+    var usuario = localStorage.getItem("usuario")
 	//var empresa = localStorage.getItem("empresa")
 	$scope.usuario = JSON.parse(usuario);
     var empresa = $scope.usuario.EMPIDC;
@@ -73,7 +75,8 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
 	$scope.personas = {}
 	$scope.tarea = {}
     //alert("empresa "+empresa);
-    //total_juntas()
+    total_juntas()
+
     getEmpresa();
     
     getPuesto();
@@ -101,8 +104,9 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
     // Llamamos a la función para obtener la lista de usuario al cargar la pantalla
     if (edit == undefined) {
         total_acuerdos();
-		//getEmpleados();
+		getEmpleados();
     }else{
+        total_acuerdos();
         getAcuerdoUnico();
         getEmpleados();
     }
@@ -141,12 +145,16 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
                 $scope.estado_de_acuerdo = ''
                 switch($scope.acuerdo.ACUSTA){
                     case 'A': $scope.estado_de_acuerdo = 'Asignado'
+                        $scope.backgroud = "blue"
                     break;
                     case 'P': $scope.estado_de_acuerdo = 'En progreso'
+                        $scope.backgroud = "brown"
                     break;
                     case 'D': $scope.estado_de_acuerdo = 'En destiempo'
+                        $scope.backgroud = "green"
                     break;
                     case 'T': $scope.estado_de_acuerdo = 'Terminado'
+                        $scope.backgroud = "red"
                     break;
                 }
                 today = get_today()
@@ -170,14 +178,14 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
         });
     }
 
-    /*function playBeep() {
+    function playBeep() {
         navigator.notification.beep(1);
     }
     // Vibrate for 2 seconds
     function vibrate() {
         navigator.notification.vibrate(2000);
     }
-    */
+    
 	// Funcion de escucha ante un nuevo acuerdo
 	socket.on("nuevo_acuerdo", function (data) {
 		//alert("nuevo EMP "+data.ACUEMP+" idUsuario "+$scope.usuario._id);
@@ -185,8 +193,8 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
         var myName = $scope.usuario._id;
         if (myName == data.ACUEMP) {
         //if (myName == data.ACUCPE) {
-            //playBeep()
-            //vibrate()
+            playBeep()
+            vibrate()
             //cordova.plugins.backgroundMode.onactivate = function () {
             //                // Modify the currently displayed notification
             //                cordova.plugins.backgroundMode.configure({
@@ -194,80 +202,45 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             //                });
             //        }
             total_acuerdos()
-            /*var numNotificaciones = parseInt($("#noti").text())
-            numNotificaciones++;
-            //$(".noti").html(numNotificaciones)
-            $("#noti").html(numNotificaciones)
-            //$("#nothing").empty();
-            //var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="mdi-social-notifications"></i> '+motivo+'</a></li>'
-            //var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="fa fa-bell"></i> '+motivo+'</a></li>'
-            //$("#notifications-dropdown").append(htmlText);
-            var htmlText = '<li><a href="acuerdo.html?id='+data._id+'"><i class="mdi-social-notifications"></i> '+data.ACUDES+'</a></li>'
-            $("#notifications-dropdown").append(htmlText);*/
-            $().toastmessage('showSuccessToast', "Nuevo Acuerdo Asignado");
-
-			/*var numNotificaciones = parseInt($(".noti2").text())
-			numNotificaciones++;
-			$(".noti2").html(numNotificaciones)
-			$("#noti2").html(numNotificaciones)
-			$("#nothing2").empty();
-			var htmlText = '<li><a href="acuerdo.html?id='+data._id+'"><i class="mdi-social-notifications"></i> '+data.ACUDES+'</a></li>'
-			$("#notifications-dropdown-acuerdos").append(htmlText);
-			Materialize.toast('Nuevo acuerdo asignado!', 4000)
-			total_acuerdos();*/
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Nuevo Acuerdo Asignado",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
 		};
 	});
+    socket.on("cambio_status", function () {
+        playBeep()
+        vibrate()
+        if ($scope.acuerdo) {
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Se ha modificado el estado de una tarea.",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            getTareas($scope.acuerdo)
+        }
+    });
 
 	// Funcion de escucha ante una nueva junta
 	socket.on("nueva_junta", function (idj, motivo, id) {
-        //playBeep()
-        //vibrate()
+        playBeep()
+        vibrate()
         //alert("idReceived = "+id+" IDUSER = "+$scope.usuario._id);
 		//var myName = $("#nombre_usuario").val();
         var myName = $scope.usuario._id;
 		if (myName == id) {
-            //alert("entro")
-			/*var numNotificaciones = parseInt($(".noti").text())
-			numNotificaciones++;
-			$(".noti").html(numNotificaciones)
-			$("#noti").html(numNotificaciones)
-			$("#nothing").empty();
-			var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="mdi-social-notifications"></i> '+motivo+'</a></li>'
-			$("#notifications-dropdown").append(htmlText);
-			Materialize.toast('Nueva junta de trabajo!', 4000)
-			total_juntas()*/
-            /*var numNotificaciones = parseInt($("#noti").text())
-            numNotificaciones++;
-            //$(".noti").html(numNotificaciones)
-            $("#noti").html(numNotificaciones)
-            //$("#nothing").empty();
-            //var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="mdi-social-notifications"></i> '+motivo+'</a></li>'
-            var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="fa fa-bell"></i> '+motivo+'</a></li>'
-            $("#notifications-dropdown").append(htmlText);*/
             total_juntas()
-            $().toastmessage('showSuccessToast', "Nueva Junta de Trabajo");
-			/*$http.get(url_server+"acuerdo/buscar/"+myName+"/"+empresa).success(function(response) {
-		        if(response.type) { // Si nos devuelve un OK la API...
-		        	total_acuerdos();
-		        }
-		    });*/
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Nueva Junta de Trabajo",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
 		};
 	});
-
-    socket.on("prueba", function (saludo) {
-        alert("ID = "+$scope.usuario._id);
-        //playBeep()
-        //vibrate()
-        var numNotificaciones = parseInt($("#noti").text())
-        numNotificaciones++;
-        //$(".noti").html(numNotificaciones)
-        $("#noti").html(numNotificaciones)
-        //$("#nothing").empty();
-        //var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="mdi-social-notifications"></i> '+motivo+'</a></li>'
-        var htmlText = '<li><a href="#"><i class="mdi-social-notifications"></i> '+saludo+'</a></li>'
-        $("#notifications-dropdown").append(htmlText);
-        $().toastmessage('showSuccessToast', "Se envio este saludo "+saludo+" mi id es "+$scope.usuario._id);
-    });
 
 	// Metodo para obtener la cantidad de acuerdos del usuario
 	function total_acuerdos(){
@@ -290,6 +263,12 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
 		$http.get(url_server+"invit/findInvitados/"+myName).success(function(response) {
 			if(response.status == 'OK') { // Si nos devuelve un OK la API...
 		        $scope.juntas = response.data;
+                $scope.juntas_l = response.data;
+                /*$("#none_juntas").remove()
+                $("#ver_todas_juntas").remove()*/
+                //$(".lista_de_juntas").append('<li class="mdl-menu__item" ><a href="junta.html?id='+response.data.INVJUN+'"> '+response.data.INVJNO+' <br> <span>'+response.data.INVFEC+' a las '+response.data.INVHOR+'hrs.</span></a></li>')
+                /*$(".lista_de_juntas").append('<li id="none_juntas" class="mdl-menu__item" ng-if="juntas.length == 0">No tienes juntas asignadas</li>');
+                $(".lista_de_juntas").append('<li id="ver_todas_juntas" class="mdl-menu__item all" ng-if="juntas.length > 0"><a href="juntas.html">Ver todas</a></li>');*/
 		    }
 		});
 	}
@@ -318,7 +297,6 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             $scope.checkedClave.push(clave);
         }
     };
-
 	// Método para agregar una tarea
     $scope.nuevaTarea = function(acuerdo){
     	$scope.tarea.TARIDC = empresa;
@@ -335,17 +313,82 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
         $scope.tarea.TARURL = ''
     	$scope.tarea.dependencias = $scope.checkedIdEmp;
     	$scope.tarea.dependencias_des = $scope.checkedDependencias;
+        $scope.tarea.date = get_today()
 
     	$http.post(url_server+"tarea/crear", $scope.tarea).success(function(response) {
             if(response.status === "OK") { // Si nos devuelve un OK la API...
             	socket.emit("nueva_tarea", response.data);
-            	$("#mensaje").empty();
-                $("#mensaje").append('<div class="chip">Tarea creada<i class="material-icons">Cerrar</i></div>');
-                $("#mensaje").css('color', '#FFF');
+            	var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Tarea creada",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
                 $(".card-reveal").fadeOut()
                 $scope.tarea = {}; // Limpiamos el scope
                 getAcuerdoUnico()
                 //getTareas(response.data.acuerdo)
+            }
+        });
+    }
+    $scope.terminarAsignacion = function(){
+        acuerdo = $scope.acuerdo
+        acuerdo.ACUSTA = "P";
+        //$scope.acuerdoN.ACUST1 = 0;
+        //$scope.acuerdoN.ACUST2 = 0;
+        //$scope.acuerdoN.ACUPUN = idO;
+        $("#aviso").closeModal()
+        var acuerdo = acuerdo;
+        acuerdo.id = acuerdo._id; // Pasamos la _id a id para mayor comodidad del lado del servidor a manejar el dato.
+        delete acuerdo._id; // Lo borramos para evitar posibles intentos de modificación de un ID en la base de datos
+
+        // Hacemos una petición PUT para hacer el update a un documento de la base de datos.
+        $http.put(url_server+"acuerdo/actualizar", acuerdo).success(function(response) {
+            if(response.status === "OK") {
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Bien, has terminado de asignar tareas",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
+                $(".card-reveal").fadeOut()
+                $scope.tarea = {}; // Limpiamos el scope
+                //getJuntaUnica(); // Actualizamos la lista de ToDo's
+                getAcuerdoUnico();
+                location.reload()
+            }
+        });
+    }
+    $scope.rechazar_tarea = function(tarea) {
+        $scope.tarea_a_rechazar = tarea;
+        $("#rechazar").openModal()
+    }
+    $scope.enviar_comentarios = function(){
+        var tarea = $scope.tarea_a_rechazar
+        tarea.TARSTA = "P";
+        tarea.TARES1 = $("#comentario_de_rechazo").val()
+        //$scope.tareaN.ACUST1 = 0;
+        //$scope.tareaN.ACUST2 = 0;
+        //$scope.tareaN.ACUPUN = idO;
+        $("#rechazar").closeModal()
+        var tarea = tarea;
+        tarea.id = tarea._id; // Pasamos la _id a id para mayor comodidad del lado del servidor a manejar el dato.
+        delete tarea._id; // Lo borramos para evitar posibles intentos de modificación de un ID en la base de datos
+        $http.put(url_server+"tarea/actualizar", tarea).success(function(response) {
+            if(response.status === "OK") {
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Se han enviado las observaciones",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
+                $(".card-reveal").fadeOut()
+
+                //getJuntaUnica(); // Actualizamos la lista de ToDo's
+                getAcuerdoUnico();
+                location.reload()
             }
         });
     }
@@ -354,8 +397,14 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
         tarea.id = tarea._id; // Pasamos la _id a id para mayor comodidad del lado del servidor a manejar el dato.
         delete tarea._id
         tarea.TARSTA = 'T';
+        tarea.TARES2 = get_today()
         $http.put(url_server+"tarea/actualizar", tarea).success(function(response) {
-            $().toastmessage('showSuccessToast', "Has validado esta tarea.");
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Has validado esta tarea",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
             getAcuerdoUnico()
         })
     }
@@ -483,8 +532,8 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
 	    return today;
 	}
     socket.on("cancel_junta", function (idj, clave, id) {
-        //playBeep()
-        //vibrate()
+        playBeep()
+        vibrate()
         var myName = $scope.usuario._id;
         if (myName == id) {
             var numNotificaciones = parseInt($("#noti").text())
@@ -495,7 +544,12 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             //var htmlText = '<li><a href="junta.html?id='+idj+'"><i class="mdi-social-notifications"></i> '+clave+'</a></li>'
             var htmlText = '<li><i class="fa fa-bell"></i>Se canceló la junta '+clave+'</li>'
             $("#notifications-dropdown").append(htmlText);
-            $().toastmessage('showSuccessToast', "Junta de Trabajo Cancelada");
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Junta de Trabajo Cancelada",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
         };
     });
 

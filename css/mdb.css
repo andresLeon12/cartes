@@ -2885,7 +2885,7 @@ optgroup {
 /**
  * Remove most spacing between table cells.
  */
-table {
+/*table {
   border-collapse: collapse;
   border-spacing: 0;
 }
@@ -2893,7 +2893,7 @@ table {
 td,
 th {
   padding: 0;
-}
+}*/
 
 /*********************
   General classes

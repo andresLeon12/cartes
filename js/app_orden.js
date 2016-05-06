@@ -19,7 +19,15 @@ app.controller('ordenController', ['$scope', '$http', function($scope, $http) {
         var empresa = $scope.usuario.EMPIDC;
         //var empresa = localStorage.getItem("empresa")
         $scope.ordenN = {}
-
+        getEmpresa();
+        function getEmpresa(){
+            $http.get(url_server+"empresa/find/"+empresa).success(function(response) {
+                if(response.type) { // Si nos devuelve un OK la API...
+                    $scope.empresa = response.data[0];
+                    $scope.urlFinal = url_server+"Empresas/"+$scope.empresa.pathImg; 
+                }
+            })
+        }
         $scope.nuevaOrden = function() {
             //alert("aaa");
             /*$scope.juntaN.JUTHOR = getHora();*/
@@ -44,7 +52,13 @@ app.controller('ordenController', ['$scope', '$http', function($scope, $http) {
                         if(response.status == "OK"){
                             //alert("1");
                             $scope.ordenN = {}; // Limpiamos el scope
-                            $().toastmessage('showSuccessToast', "Se creo el punto de la Orden de dia");
+                            var notification = document.querySelector('.mdl-js-snackbar');
+                            var data = {
+                                message: "Se creo el punto de la orden del dia",
+                                timeout: 4000
+                            };
+                            notification.MaterialSnackbar.showSnackbar(data);
+                            //$().toastmessage('showSuccessToast', "Se creo el punto de la Orden de dia");
                             getJuntaUnica();
                             getOrdenUnica();
                         }
@@ -74,7 +88,13 @@ app.controller('ordenController', ['$scope', '$http', function($scope, $http) {
                     //$("#mensaje").append('<div class="chip">Información actualizada <i class="material-icons">Cerrar</i></div>');
                     //$("#mensaje").css('color', '#FFF');
                     //$(".card-reveal").fadeOut()
-                    $().toastmessage('showSuccessToast', "Se Actualizo el punto de la Orden de dia");
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Información actualizada",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+                    //$().toastmessage('showSuccessToast', "Se Actualizo el punto de la Orden de dia");
                     //$('#'+orden.id+"-Update").modal();
                     //getJuntaUnica();
                     getOrdenUnica(); // Actualizamos la lista de ToDo's
@@ -94,7 +114,13 @@ app.controller('ordenController', ['$scope', '$http', function($scope, $http) {
                     //$("#mensaje").css('color', '#FFF');
                     //$(".card-reveal").fadeOut()
                     //$scope.orden = {}
-                    $().toastmessage('showSuccessToast', "Se Eliminó el punto de la Orden de dia");
+                    var notification = document.querySelector('.mdl-js-snackbar');
+                    var data = {
+                        message: "Se elimin[o el punto de la orden del dia",
+                        timeout: 4000
+                    };
+                    notification.MaterialSnackbar.showSnackbar(data);
+                    //$().toastmessage('showSuccessToast', "Se Eliminó el punto de la Orden de dia");
                     //$('#'+id+"-Delete").modal('hide');
                     $('#'+id+"-Delete").closeModal();
                     getJuntaUnica();

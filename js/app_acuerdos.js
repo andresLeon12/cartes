@@ -3,7 +3,7 @@ var app = angular.module('secreto', [])
 var url_server = 'http://159.203.128.165:8080/';
 //var url_server = 'http://127.0.0.1:8080/';
 var socket = io.connect(url_server);
-
+//alert("socket"+socket)
 //Para cerrar los modales
 $(document).on("click","#open_Modal", function(){
 	$("#abrir_Modal").openModal()// Abrimos la ventana
@@ -16,7 +16,6 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
 	//$scope.listOrden = {};
 	//var empresa = $scope.usuario.empresa;
     var empresa = $scope.usuario.EMPIDC;
-
 	var idO = getUrlParameter('idO');
 	if(idO == undefined){
 
@@ -44,6 +43,15 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
 	//getAcuerdos();	
 	getAcuerdoByJunta();
 	//alert("nnnn");
+    getEmpresa()
+    function getEmpresa(){
+        $http.get(url_server+"empresa/find/"+empresa).success(function(response) {
+            if(response.type) { // Si nos devuelve un OK la API...
+                $scope.empresa = response.data[0];
+                //$scope.urlFinal = url_server+"Empresas/"+$scope.empresa.pathImg; 
+            }
+        })
+    }
 	$scope.nuevoAcuerdo = function(){
         //alert("empresa "+empresa+" idJ "+id+" idO "+idO);
 		$scope.acuerdoN.ACUIDC = empresa;
@@ -70,7 +78,13 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
         $http.post(url_server+"acuerdo/crear", $scope.acuerdoN).success(function(response) {
             if(response.status === "OK") { // Si nos devuelve un OK la API...
                 //alert("s "+$scope.juntaN.JUTSTA);
-                $().toastmessage('showSuccessToast', "Se creo el Acuerdo "+$scope.acuerdoN.ACUCON);
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Se creo el Acuerdo "+$scope.acuerdoN.ACUCON,
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Se creo el Acuerdo "+$scope.acuerdoN.ACUCON);
                 //$().toastmessage('showSuccessToast', "Para crear la Orden del dia de la Junta Nueva, vaya a Ver Todas las Juntas");
                 $scope.acuerdoN = {}; // Limpiamos el scope
                 getJuntaUnica();
@@ -106,7 +120,13 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
         // Hacemos una petición PUT para hacer el update a un documento de la base de datos.
         $http.put(url_server+"acuerdo/actualizar", acuerdo).success(function(response) {
             if(response.status === "OK") {
-                $().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Informacion actualizada",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
                 $(".card-reveal").fadeOut()
                 //getJuntaUnica(); // Actualizamos la lista de ToDo's
                 getAcuerdoByOrden();
@@ -133,7 +153,13 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
     	$http.delete(url_server+"acuerdo/eliminar", { params : {identificador: idA}}).success(function(response) {
 			//console.log("function");
 			if(response.status === "OK") { // Si la API nos devuelve un OK...
-				$().toastmessage('showSuccessToast', 'Acuerdo Eliminado Correctamente');
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Acuerdo eliminado",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+				//$().toastmessage('showSuccessToast', 'Acuerdo Eliminado Correctamente');
 				//$('#'+id+"-Delete").modal('hide');
 				$('#'+id+"-Delete").closeModal();
 				//$scope.junta = {}
@@ -141,23 +167,30 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
 			}
 		});
     }
-
+    
     $scope.enviarAcuerdos = function(sendAcuerdos){
     	//alert("1 --> send Acuerdos "+sendAcuerdos);
 
         for(var i = 0 ; i < $scope.listOrden.length ; i++){
             actualizarStatusOrden($scope.listOrden[i]._id,"A");//A es asignada
         }
+        for(var i = 0 ; i < sendAcuerdos.length ; i++){
+            socket.emit("nuevo_acuerdo", sendAcuerdos[i]);
+        }
         $http.get(url_server+'junta/actualizarStatus', { params : {junta: id, status:'A'}}).success(function(datos){//A ---> Acordado --- cafe
             if(datos.type){
-                $().toastmessage('showSuccessToast', "Se enviaron los acuerdos y acaba de cerrar la junta");
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Se enviaron los acuerdos",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Se enviaron los acuerdos y acaba de cerrar la junta");
                 getJuntaUnica();
             }
         });
         
-    	for(var i = 0 ; i < sendAcuerdos.length ; i++){
-    		socket.emit("nuevo_acuerdo", sendAcuerdos[i]);
-    	}
+    	
     }
     $scope.cerrarJunta = function(){
         //alert("aa close "+id);
@@ -166,7 +199,13 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
         }
         $http.get(url_server+'junta/actualizarStatus', { params : {junta: id, status:'O'}}).success(function(datos){//A ---> Acordado --- cafe
             if(datos.type){
-                $().toastmessage('showSuccessToast', "Junta Acordada");
+                var notification = document.querySelector('.mdl-js-snackbar');
+                var data = {
+                    message: "Junta acordada",
+                    timeout: 4000
+                };
+                notification.MaterialSnackbar.showSnackbar(data);
+                //$().toastmessage('showSuccessToast', "Junta Acordada");
                 getJuntaUnica();
             }
         })
@@ -223,53 +262,11 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
                     //tamanio = response.data.length;
                     $scope.listOrden = response.data;
                     lista_ordenes = response.data;
-                    //alert("listOrden "+lis);
-                    /*for (var i = 0; i < response.data.length; i++) {
-						alert(response.data[i]._id);
-						alert("return "+get_AcuerdoByOrden(response.data[i]._id))
-					}*/
-                    /*if(response.data.length == 0){
-                        $("#avisoOrdenByJunta").empty();
-                        $("#avisoOrdenByJunta").append('<div class="alert alert-danger">Todavia no hay puntos de la orden del dia</div>');
-                        var idNuevo = {
-                            id:id,
-                            bandera:2
-                        }
-                        //var idNuevo.id = response.data._id;
-                        $http.put(url_server+"junta/actualizarEstado",idNuevo).success(function(response){
-                            if(response.status == "OK"){
-                                console.log("OK");
-                                //alert("1");
-                                //$().toastmessage('showSuccessToast', "Empleado Agregado");
-                                //getInvitadosByJunta();
-                            }
-                        });
-                    }*/
                 }
                 getAcuerdos($scope.listOrden)
-                /*var acuerdos_orden = [];
-                for(var i = 0 ; i < $scope.listOrden.length ; i++){
-            		$http.get(url_server+"acuerdo/findByOrden/"+$scope.listOrden[i]._id).success(function(response){
-						if (response.type) {
-							acuerdos_orden.push(response.data);
-							//alert(i+" ---- response data "+response.data[0]._id)
-							//$scope.acuerdoByOrden = response.data;
-						}else{
-							console.log("Error en getAcuerdoByOrden II");
-						}
-					});    	
-                }
-                alert("acuerdos_orden "+acuerdos_orden);*/
+                
             });
 		}
-			/*alert("listOrden II "+$scope.listOrden);
-			var datosOfAcuerdosByOrden = [];
-			for (var i = 0; i < $scope.listOrden.length; i++) {
-				alert($scope.listOrden[i]._id)
-				datosOfAcuerdosByOrden.push(get_AcuerdoByOrden($scope.listOrden[i]._id));
-			}
-			$scope.allAcuerdosByOrden = datosOfAcuerdosByOrden;
-			alert($scope.allAcuerdosByOrden);*/
     }        
 
         function getUrlParameter(sParam) {
@@ -293,10 +290,6 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
             $http.get(url_server+"junta/find/"+id).success(function(response) {
                 if(response.type) { // Si nos devuelve un OK la API...
                     $scope.junta = response.data[0];
-                    //alert("ID = "+response.data[0]._id);
-                    //document.getElementById('id').value = response.data[0]._id;
-                    //var idt = response.data[0]._id;
-                    //alert("idt "+idO);
                 }
             });
         }

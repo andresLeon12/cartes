@@ -71,6 +71,7 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
         total_tareas();
     }else{
         getTareaUnico();
+        total_tareas();
     }
 	getEmpresa()
     function getEmpresa(){
@@ -119,8 +120,8 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
                 }
 	/* Funcion de escucha ante un nuevo acuerdo */
 	socket.on("nueva_tarea", function (data) {
-        /*playBeep()
-        vibrate()*/
+        playBeep()
+        vibrate()
 		var user = JSON.parse(usuario)
 		var myName = user._id;
 		if (myName == data.TARRES) {
@@ -132,17 +133,62 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
 			var htmlText = '<li><a href="tarea.html?id='+data._id+'"><i class="mdi-social-notifications"></i> '+data.ACUDES+'</a></li>'
 			$("#notifications-dropdown").append(htmlText);
 			Materialize.toast('Nueva tarea asignada!', 4000)*/
-            $().toastmessage('showSuccessToast', "Nuevo Acuerdo Asignado");
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Nueva tarea asignada",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            //$().toastmessage('showSuccessToast', "Nuevo Acuerdo Asignado");
 			total_tareas();
 		};
 	});
 	/* Metodo para obtener la cantidad de acuerdos del usuario */
+    $scope.tareas = []
 	function total_tareas(){
 		var user = JSON.parse(usuario)
-		var myName = user._id;
+        var edit = getUrlParameter('idempleado');
+        if (edit == null) 
+		  var myName = user._id;
+        else
+            var myName = edit;
+        $scope.tareas = []
 		$http.get(url_server+"tarea/buscar/"+myName).success(function(response) {
 			if(response.type) { // Si nos devuelve un OK la API...
-		        $scope.tareas = response.data;
+		        //$scope.tareas = response.data;
+                response.data.forEach(function(t) {
+                    var eficacia = ''
+                    if (t.TARSTA == 'T') {
+                        var dias_diferencia = restaFechas(t.date, t.TARES2)
+                        if (dias_diferencia != NaN) {
+                            if (efic < 0) {
+                                var efic = ((dias_diferencia * -1) * 100) / parseInt(t.TARCAN)
+                                eficacia = efic.toString()+"%"
+                            }else{
+                                var efic = 100 + ((dias_diferencia * 100) / parseInt(t.TARCAN))
+                                eficacia = efic.toString()+"%"
+                            }
+                            //$scope.eficacia[$scope.eficacia.length] = efic.toString()+"%";
+                        }else{
+                            //$scope.eficacia[$scope.eficacia.length] = "Indeterminada"
+                            eficacia = "Indeterminada"
+                        }
+                    }else{
+                        eficacia = "Indeterminada"
+                    }
+                    var datos = {
+                        _id: t._id,
+                        TARDES: t.TARDES,
+                        TARIMP: t.TARIMP,
+                        date: t.date,
+                        TARCAN: t.TARCAN,
+                        TARENT: t.TARENT,
+                        TARSTA: t.TARSTA,
+                        TARES2: t.TARES2,
+                        eficacia: eficacia
+                    }
+                    $scope.tareas[$scope.tareas.length] = datos;
+                })
 		        /*var total_acuerdos = response.data.length;
 		        $("#num-notifications").html(total_acuerdos);*/
 		    }
@@ -168,9 +214,18 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
         tarea.id = tarea._id; // Pasamos la _id a id para mayor comodidad del lado del servidor a manejar el dato.
         delete tarea._id
         tarea.TARSTA = 'V';
+        tarea.TARES1 = '';
         $http.put(url_server+"tarea/actualizar", tarea).success(function(response) {
-            $().toastmessage('showSuccessToast', "Se ha enviado el entregable.");
+            socket.emit("cambio_status")
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Se ha iniciado la tarea",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            //$().toastmessage('showSuccessToast', "Se ha iniciado la tarea.");
             getTareaUnico(response.data._id)
+            location.reload();
         })
     }
     /* Método para obtener información de una tarea específica */
@@ -228,8 +283,16 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
         delete tarea._id
         tarea.TARSTA = 'P';
         $http.put(url_server+"tarea/actualizar", tarea).success(function(response) {
-            $().toastmessage('showSuccessToast', "Se ha iniciado la tarea.");
+            socket.emit("cambio_status")
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Se ha iniciado la tarea",
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            //$().toastmessage('showSuccessToast', "Se ha iniciado la tarea.");
             getTareaUnico(response.data._id)
+            location.reload();
         })
     }
     /* Método para obtener información de un usuario específico */

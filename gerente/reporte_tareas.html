@@ -51,14 +51,23 @@
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
         <div class="mdl-layout__header-row">
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon notificaciones" id="tareas">
+          
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon notificaciones" id="juntas">
+            <i class="fa fa-group"></i>
+          </button>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="juntas">
+            <li class="mdl-menu__item" ng-repeat="junta in juntas_l"><a href="junta.html?id={{junta.INVJUN}}"> {{junta.INVJNO}} <br> <span>{{junta.INVFEC}} a las {{junta.INVHOR}} hrs.</span></a></li>
+            <li class="mdl-menu__item" ng-if="juntas.length == 0">No tienes juntas asignadas</li>
+            <li class="mdl-menu__item all" ng-if="juntas.length > 0"><a href='juntas.html'>Ver todas</a></li>
+          </ul>
+
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon notificaciones" id="acuerdos">
             <i class="fa fa-bell"></i>
           </button>
-
-          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="tareas">
-            <li class="mdl-menu__item" ng-repeat="tarea in tareas"><a href="tarea.html?id={{tarea._id}}"> {{tarea.TARDES}} <br> <span>Tienes {{tarea.TARCAN}} días para terminar esta tarea.</span> </a></li>
-            <li class="mdl-menu__item" ng-if="tareas.length == 0">No tienes tareas asignados</li>
-            <li class="mdl-menu__item all" ng-if="tareas.length > 0"><a href='tareas.html'>Ver todos</a></li>
+          <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="acuerdos">
+            <li class="mdl-menu__item" ng-repeat="acuerdo in acuerdos"><a href="acuerdo.html?id={{acuerdo._id}}"> {{acuerdo.ACUDES}} </a></li>
+            <li class="mdl-menu__item" ng-if="acuerdos.length == 0">No tienes acuerdos asignados</li>
+            <li class="mdl-menu__item all" ng-if="acuerdos.length > 0"><a href='acuerdos.html'>Ver todos</a></li>
           </ul>
           <div class="mdl-layout-spacer"></div>
           <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
@@ -96,11 +105,14 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-          <a class="mdl-navigation__link" href="inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
-          <a class="mdl-navigation__link" href="reporte_tareas.html"><i class="mdl-color-text--blue-grey-400 fa fa-pie-chart" role="presentation"></i>&nbsp;&nbsp;Reporte de tareas</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="juntas.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Juntas</a>
+          <a class="mdl-navigation__link" href="acuerdos.html"><i class="mdl-color-text--blue-grey-400 fa fa-bell" role="presentation"></i>&nbsp;&nbsp;Acuerdos</a>
+          <a class="mdl-navigation__link" href="reportes.html"><i class="mdl-color-text--blue-grey-400 fa fa-pie-chart" role="presentation"></i>&nbsp;&nbsp;Reportes de empleados</a>
           <a class="mdl-navigation__link logout" href=""><i class="mdl-color-text--blue-grey-400 fa fa-sign-out" role="presentation"></i>&nbsp;&nbsp;Salir</a>
         </nav>
-      </div>
+        </div>
+    </div>
     <!--/.Navbar-->
     <!-- Contenido -->
     <section> 
