@@ -50,7 +50,9 @@
 
     <script type="text/javascript" charset="utf-8">
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
     // Cordova is loaded and it is now safe to make calls Cordova methods
     //
@@ -72,7 +74,7 @@
     </script>
 </head>
 
-<body ng-controller='acuerdoController' class="full-bg-img">
+<body ng-controller='acuerdoController' class="full-bg-img" onload="onLoad()">
     <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a href="juntas_de_trabajo.html" class="btn-floating btn-large waves-effect waves-light red"><i class="icon-mail-reply"></i></a>
     </div-->
@@ -172,6 +174,7 @@
                     <div ng-if="junta.JUNSTA == 'O'">
                         <a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Enviar Acuerdos y Cerrar Junta</a>
                     </div>
+                    <div id="aviso"></div>
                     <div class="alert alert-success" ng-if="junta.JUNSTA == 'A'">
                         Se acaba de enviar los acuerdos y cerró la junta
                     </div>

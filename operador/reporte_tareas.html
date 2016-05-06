@@ -42,7 +42,9 @@
     <script type="text/javascript" src="../cordova.js"></script>
     <script type="text/javascript" charset="utf-8">
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
     // Cordova is loaded and it is now safe to make calls Cordova methods
     //
@@ -64,7 +66,7 @@
     </script>
 </head>
 
-<body ng-controller='empleadoController' class="full-bg-img">
+<body ng-controller='empleadoController' class="full-bg-img" onload="onLoad()">
 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large red" href="inicio.html">
       <i class="fa fa-home"></i>

@@ -39,8 +39,9 @@
     <script type="text/javascript" src="../../cordova.js"></script>
     <script type="text/javascript" src="../../js/material.js"></script>
     <script type="text/javascript" charset="utf-8">
-
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function onLoad(){
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
     // Cordova is loaded and it is now safe to make calls Cordova methods
     //
@@ -62,7 +63,7 @@
     </script>
 </head>
 
-<body ng-controller='invitadosController' class="full-bg-img">
+<body ng-controller='invitadosController' class="full-bg-img" onload="onLoad()">
     <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a href="juntas_de_trabajo.html" class="btn-floating btn-large waves-effect waves-light red"><i class="icon-mail-reply"></i></a>
     </div-->
@@ -132,7 +133,7 @@
                         <div class="input-field" style="padding: 15px;">
                           <i class="icon-search prefix"></i>
                           <input id="icon_prefix" type="text" class="validate" ng-model='busqueda'>
-                          <label for="icon_prefix" class="teal-color">Buscar Junta de Trabajo</label>
+                          <label for="icon_prefix" class="teal-color">Buscar Empleado</label>
                         </div>
                         <div id="avisoOrdenByJunta"></div>
                         <ul class="collection lista_invitados">

@@ -123,8 +123,8 @@ app.controller('juntaController', ['$scope', '$http', function($scope, $http) {
 
     $scope.updateJunta = function() {
         //var junta = $scope.junta;
-        var fecha = document.getElementById('fec').value;
-        $scope.junta.JUNFEC = fecha;
+        /*var fecha = document.getElementById('fec').value;
+        $scope.junta.JUNFEC = fecha;*/
 
         //$('#'+junta._id+"-Update").closeModal();
         //$('#'+junta._id+"-Update").modal('hide');

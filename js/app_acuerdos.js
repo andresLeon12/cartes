@@ -58,8 +58,21 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
 		$scope.acuerdoN.ACUPUN = idO;
 		$scope.acuerdoN.ACUJUN = id;
         $scope.acuerdoN.ACUSTA = 'A';//Asignada
+        $scope.acuerdoN.ACUENT = '';
+
         //alert("nuevo acuerdo");
 		var fec_limiteAcuerdo = document.getElementById('fec').value;
+        
+        if($scope.acuerdoN.ACUEMP == undefined){
+            $("#errorAcuerdo").append('<div class="alert alert-danger">Seleccione a un Encargado para el Acuerdo</div>');
+            return;
+        }
+
+        if (fec_limiteAcuerdo == ""){
+            //alert("->"+fec_limiteAcuerdo);
+            $("#errorAcuerdo").append('<div class="alert alert-danger">Seleccione una Fecha Limite</div>');
+            return;
+        }
         //alert(fec_junta);
         $scope.acuerdoN.ACUTIM = fec_limiteAcuerdo;
         //alert($scope.juntaN.JUNFEC);
@@ -170,7 +183,7 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
     
     $scope.enviarAcuerdos = function(sendAcuerdos){
     	//alert("1 --> send Acuerdos "+sendAcuerdos);
-
+        $("#aviso").empty();
         for(var i = 0 ; i < $scope.listOrden.length ; i++){
             actualizarStatusOrden($scope.listOrden[i]._id,"A");//A es asignada
         }
@@ -185,7 +198,7 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
                     timeout: 4000
                 };
                 notification.MaterialSnackbar.showSnackbar(data);
-                //$().toastmessage('showSuccessToast', "Se enviaron los acuerdos y acaba de cerrar la junta");
+                $("#aviso").append('<div class="alert alert-success">Se envió los acuerdos y se Cerró la junta <i class="icon-thumbs-up"></i></div>');
                 getJuntaUnica();
             }
         });

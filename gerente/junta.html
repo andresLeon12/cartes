@@ -46,7 +46,9 @@
 
     <script type="text/javascript" charset="utf-8">
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
     // Cordova is loaded and it is now safe to make calls Cordova methods
     //
@@ -68,7 +70,7 @@
     </script>
 </head>
 
-<body ng-controller='juntaController' class="full-bg-img">
+<body ng-controller='juntaController' class="full-bg-img" onload="onLoad()">
     <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a href="juntas_de_trabajo.html" class="btn-floating btn-large waves-effect waves-light red"><i class="icon-mail-reply"></i></a>
     </div-->
@@ -135,7 +137,7 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
           <a class="mdl-navigation__link" href="juntas.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Juntas</a>
           <a class="mdl-navigation__link" href="acuerdos.html"><i class="mdl-color-text--blue-grey-400 fa fa-bell" role="presentation"></i>&nbsp;&nbsp;Acuerdos</a>
           <a class="mdl-navigation__link" href="reportes.html"><i class="mdl-color-text--blue-grey-400 fa fa-pie-chart" role="presentation"></i>&nbsp;&nbsp;Reportes de empleados</a>

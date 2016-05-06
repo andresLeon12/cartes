@@ -18,7 +18,7 @@
     
 </head>
 
-<body ng-controller='empleadoController'>
+<body ng-controller='empleadoController' onload="onLoad()">
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
         <div class="mdl-layout__header-row">
@@ -67,7 +67,7 @@
           </div>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--white">
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
           <a class="mdl-navigation__link" href="reporte_tareas.html"><i class="mdl-color-text--blue-grey-400 fa fa-pie-chart" role="presentation"></i>&nbsp;&nbsp;Reporte de tareas</a>
           <a class="mdl-navigation__link logout" href=""><i class="mdl-color-text--blue-grey-400 fa fa-sign-out" role="presentation"></i>&nbsp;&nbsp;Salir</a>
         </nav>
@@ -111,7 +111,9 @@
 
     <script type="text/javascript" charset="utf-8">
 
-    document.addEventListener("deviceready", onDeviceReady, false);
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
 
     // Cordova is loaded and it is now safe to make calls Cordova methods
     //
