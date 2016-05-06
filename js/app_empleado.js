@@ -146,7 +146,7 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
 		};
 	});
 
-    ocket.on("notificacion_de_tarea", function (data) {
+    socket.on("notificacion_de_tarea", function (data) {
         var user = JSON.parse(usuario)
         var myName = user._id;
         if (myName == data.TARRES) {

@@ -455,8 +455,8 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             if(response.status === "OK") { // Si nos devuelve un OK la API...
             	$scope.tareas = response.data;
             	for (var i=0;i<$scope.tareas.length;i++){
-                    var dep = $scope.tareas[i].ACUSTA;
-                    if ((tarea_dep.ACUSTA != 'T') ) {
+                    var dep = $scope.tareas[i].TARSTA;
+                    if ((dep != 'T') ) {
                     	$scope.bloqueado = "false";
                     };
                 }

@@ -93,7 +93,7 @@
             <i class="fa fa-bell"></i>
           </button>
           <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-left notificaciones-ul" for="acuerdos">
-            <li class="mdl-menu__item" ng-repeat="acuerdo in acuerdos"><a href="acuerdo.html?id={{acuerdo._id}}"> {{acuerdo.ACUDES}} </a></li>
+            <li class="mdl-menu__item" ng-repeat="acuerd in acuerdos"><a href="acuerdo.html?id={{acuerd._id}}"> {{acuerd.ACUDES}} </a></li>
             <li class="mdl-menu__item" ng-if="acuerdos.length == 0">No tienes acuerdos asignados</li>
             <li class="mdl-menu__item all" ng-if="acuerdos.length > 0"><a href='acuerdos.html'>Ver todos</a></li>
           </ul>
@@ -203,13 +203,13 @@
 									    	<button ng-if='d.TARSTA=="V"' class="btn red white-text" ng-click='rechazar_tarea(d)'>Rechazar</button></td>
 									    </tr>
 									</table>
-									<a href="#" class="btn teal white-text right" id="terminarbtn" ng-if="acuerdo.ACUSTA=='A'">
+									<a href="#" class="btn teal white-text right" id="terminarbtn" ng-if="acuerdo.ACUSTA=='A' && bloqueado">
 										He terminado de asignar tareas
 									</a>
-                  <a href="#" class="btn teal white-text right" ng-click="terminarAcuerdo()" ng-if="bloqueado && acuerdo.ACUSTA!='T'">
+                  <a href="#" class="btn teal white-text right" ng-click="terminarAcuerdo()" ng-if="!bloqueado && acuerdo.ACUSTA!='T'">
                     Terminar acuerdo
                   </a>
-                  <div class="alert alert-success" ng-if="acuerdo.ACUSTA='T'">Acuerdo terminado</div>
+                  <div class="alert alert-success" ng-if="acuerdo.ACUSTA=='T' && !bloqueado">Acuerdo terminado</div>
 								</div>
                         	</div>
                         </div>
