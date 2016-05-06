@@ -221,18 +221,21 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
             };
             notification.MaterialSnackbar.showSnackbar(data);
             getTareas($scope.acuerdo)
-            location.reload()
+            var edit = getUrlParameter('id');
+            if (edit != null) 
+                location.reload()
         }
     });
 
 	// Funcion de escucha ante una nueva junta
 	socket.on("nueva_junta", function (idj, motivo, id) {
-        playBeep()
-        vibrate()
+        
         //alert("idReceived = "+id+" IDUSER = "+$scope.usuario._id);
 		//var myName = $("#nombre_usuario").val();
         var myName = $scope.usuario._id;
 		if (myName == id) {
+            playBeep()
+            vibrate()
             total_juntas()
             var notification = document.querySelector('.mdl-js-snackbar');
             var data = {
@@ -389,6 +392,7 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
 
                 //getJuntaUnica(); // Actualizamos la lista de ToDo's
                 getAcuerdoUnico();
+                socket.emit("notificacion_de_tarea", tarea)
                 location.reload()
             }
         });
@@ -533,10 +537,11 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
 	    return today;
 	}
     socket.on("cancel_junta", function (idj, clave, id) {
-        playBeep()
-        vibrate()
+        
         var myName = $scope.usuario._id;
         if (myName == id) {
+            playBeep()
+            vibrate()
             var numNotificaciones = parseInt($("#noti").text())
             numNotificaciones++;
             //$(".noti").html(numNotificaciones)

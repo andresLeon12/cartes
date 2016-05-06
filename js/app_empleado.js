@@ -118,13 +118,15 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
                 function vibrate() {
                     navigator.notification.vibrate(2000);
                 }
+
 	/* Funcion de escucha ante un nuevo acuerdo */
 	socket.on("nueva_tarea", function (data) {
-        playBeep()
-        vibrate()
+        
 		var user = JSON.parse(usuario)
 		var myName = user._id;
 		if (myName == data.TARRES) {
+            playBeep()
+            vibrate()
 			/*var numNotificaciones = parseInt($(".noti").text())
 			numNotificaciones++;
 			$(".noti").html(numNotificaciones)
@@ -143,6 +145,36 @@ app.controller('empleadoController', ['$scope', '$http', 'fileUpload', function(
 			total_tareas();
 		};
 	});
+
+    ocket.on("notificacion_de_tarea", function (data) {
+        var user = JSON.parse(usuario)
+        var myName = user._id;
+        if (myName == data.TARRES) {
+            playBeep()
+            vibrate()
+            /*var numNotificaciones = parseInt($(".noti").text())
+            numNotificaciones++;
+            $(".noti").html(numNotificaciones)
+            $("#noti").html(numNotificaciones)
+            $("#nothing").empty();
+            var htmlText = '<li><a href="tarea.html?id='+data._id+'"><i class="mdi-social-notifications"></i> '+data.ACUDES+'</a></li>'
+            $("#notifications-dropdown").append(htmlText);
+            Materialize.toast('Nueva tarea asignada!', 4000)*/
+            var notification = document.querySelector('.mdl-js-snackbar');
+            var data = {
+                message: "Nueva notificación de tarea "+data.TARDES,
+                timeout: 4000
+            };
+            notification.MaterialSnackbar.showSnackbar(data);
+            var edit = getUrlParameter('id');
+            if (edit != null) {
+                if (edit == data.id) 
+                    location.reload();
+            }
+            //$().toastmessage('showSuccessToast', "Nuevo Acuerdo Asignado");
+            total_tareas();
+        };
+    });
 	/* Metodo para obtener la cantidad de acuerdos del usuario */
     $scope.tareas = []
 	function total_tareas(){
