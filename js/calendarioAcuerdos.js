@@ -19,7 +19,7 @@ var Script = function () {
     /* initialize the calendar
      -----------------------------------------------------------------*/
     var datos;
-
+    var url_server = 'http://159.203.128.165:8080/'
     var user = localStorage.getItem("usuario")///nuevo
     var usuario = JSON.parse(user);//NUEVO
     var empresa = usuario.EMPIDC;
