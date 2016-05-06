@@ -22,14 +22,14 @@ app.controller('loginController', function($scope, $http){
 	$scope.datos = {}
 	/* Funcion de login */
 	$scope.login = function(){
-		$("#msjError").empty();
+		$("#error").empty();
 		$http.get(url_server+'signup', { params : {EMPCEE: $scope.datos.EMPCEE, EMPPAS: $scope.datos.EMPPAS, EMPRFC : $scope.datos.EMPRFC}}).success(function(datos){//Nomenclatura nueva
 		//$http.get(url_server+'login', { params : {celular: $scope.datos.celular, clave: $scope.datos.clave, EMPRFC : $scope.datos.EMPRFC}}).success(function(datos){
 		//$http.get(url_server+'login', { params : {correo: $scope.datos.correo, clave: $scope.datos.clave, empresa : $scope.datos.empresa}}).success(function(datos){
 			if(!datos.type){
 				$scope.mensaje = datos.data;
-				$("#msjError").empty();
-				$("#msjError").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
+				$("#error").empty();
+				$("#error").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
 				//$("#error").append("<div class='yellow center-align'><i class='mdi-alert-warning'></i> No estas autorizado para ingresar.</div>");
 			}else{
 				if(typeof(Storage) !== "undefined") {
@@ -56,8 +56,8 @@ app.controller('loginController', function($scope, $http){
 							window.location.href = 'secretario/inicio.html'
 						}
 			        }else{
-						$("#msjError").empty();
-						$("#msjError").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>ha ocurrido un error al procesar los datos. Inténtelo nuevamente! 2.</div>');        	
+						$("#error").empty();
+						$("#error").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>ha ocurrido un error al procesar los datos. Inténtelo nuevamente. Verifique su conexión de red!.</div>');        	
 			        }
 			    });
 			}

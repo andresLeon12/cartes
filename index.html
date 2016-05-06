@@ -43,11 +43,36 @@
     <!-- Script de control -->
     <script type="text/javascript" src="js/rutas.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onOnline, false);
+    }
+
+    // Handle the offline event
+    //
+    function onOffline() {
+      //alert("offline")
+      document.getElementById("online").innerHTML = "<div class='alert alert-danger'>Esperando una conexión de red ...</div>";
+    }
+    function onOnline() {
+      //alert("online")
+      document.getElementById("online").innerHTML = "";
+    }
+    </script>
 </head>
 
-  <body class="cyan" ng-controller="loginController">
+  <body class="cyan" ng-controller="loginController" onload="onLoad()">
     <div id="login-page" class="row" ng-controller='loginController'>
+        <div id="online"></div>
           <div id="error"></div>
             <div class="col s12 z-depth-4 card-panel">
               <form class="login-form" ng-submit='login()'>
