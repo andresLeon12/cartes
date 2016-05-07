@@ -127,7 +127,7 @@
                 <div class="card-panel">
                     <div class="card-image">
                         <div class="view overlay hm-white-slight z-depth-1">
-                            <p class="titulo"> Orden del Dia de la Junta {{junta.JUNNUM}}</p>
+                            <p class="espacio center">Crear Acuerdos para la orden del día de la Junta {{junta.JUNNUM}}</p>
                             <!--p>1._ a</p>
                             <p>2._ b</p>
                             <div class="mask waves-effect activator"></div-->
@@ -147,7 +147,7 @@
                                     {{orden.ORDCON}}._ {{orden.ORDDES}}<br>
                                 </p>
                                 <hr>
-                                <a href="acuerdoByOrden.html?idO={{orden._id}}">Nuevo Acuerdo del punto {{orden.ORDCON}}</a>
+                                <a href="acuerdoByOrden.html?idO={{orden._id}}" class="btn btn-primary waves-effect waves-light"><i class="mdi-editor-mode-edit"></i> Acuerdo</a>
                                 <!--a href="#" id="actualizar" class="secondary-content" ng-click="openModalUpdate(orden._id)">
                                     <i class="icon-pencil icon-2x"></i>
                                 </a>
@@ -158,7 +158,7 @@
                         </ul>
                         <div class="text-center" ng-if="tamAcuerdosByJunta > 0">
                             <!--a href="verAcuerdosByJunta.html?id={{junta._id}}" id="" class="btn btn-primary waves-effect waves-light">Terminar Junta y verificar mis Acuerdos</a-->
-                            <a href="verAcuerdosByJunta.html?id={{junta._id}}" id="" class="btn btn-primary waves-effect waves-light">Crear Minuta de Acuerdos</a>
+                            <a href="verAcuerdosByJunta.html?id={{junta._id}}" id="" class="btn btn-primary waves-effect waves-light"><i class="fa fa-folder"></i> Crear Minuta de Acuerdos</a>
                         </div>
                         <!--div ng-if="tamAcuerdo > 0">
                             <a href="#" id="cancelarJunta" class="btn btn-danger waves-effect waves-light">A</a>

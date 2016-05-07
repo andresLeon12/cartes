@@ -249,7 +249,8 @@ footer.page-footer {
 }
 
 .espacio{
-  padding:0px 0px 0px 10px;
+  padding:5px 0px 0px 10px;
+  font-weight:bolder;
 }
 
 .cajas{
@@ -393,6 +394,14 @@ footer.page-footer {
 .estiloMenuOrden li a{
   font-size:10pt;
 }
+
+.estiloMenu2{
+  right: 8px; top: -5px; width: 124px;overflow-y:scroll;
+}
+.estiloMenu2 li a{
+  font-size:10pt;
+}
+
 .ordenBox{
   height:120px;
 }

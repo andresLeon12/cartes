@@ -9,19 +9,18 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
     <!-- Bootstrap core CSS -->
-    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!--link href="../../css/bootstrap.min.css" rel="stylesheet"-->
     <!-- Material Design Bootstrap -->
     <link href="../../css/mdb.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="../../css/style.css" rel="stylesheet">
     <!-- Toast -->
     <link href="../../css/jquery.toastmessage.css" rel="stylesheet">
-    <!-- Calendario -->
-    <link href="../../css/datepicker.css" rel="stylesheet">
 
     <link rel='stylesheet' type='text/css'href='../../css/classic.time.css'/>
     <link rel='stylesheet' type='text/css'href='../../css/material.css'/>
     <link href="../../css/styles.css" rel="stylesheet">
+    <link href="../../css/materialize.css" rel="stylesheet">
 
     <!-- Scripts -->
     <!-- JQuery -->
@@ -37,12 +36,11 @@
     <script type="text/javascript" src="../../js/mdb.min.js"></script>
     <!-- Toast -->
     <script type="text/javascript" src="../../js/jquery.toastmessage.js"></script>
-    <!-- Calendario -->
-    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
-
+    
     <script type='text/javascript'src='../../js/picker.time.js'></script>
     <script type="text/javascript" src="../../cordova.js"></script>
     <script type="text/javascript" src="../../js/material.js"></script>
+    <script type="text/javascript" src="../../js/materialize.min.js"></script>
 
     <script type="text/javascript" charset="utf-8">
     function onLoad(){
@@ -73,12 +71,18 @@
     <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
       <a href="juntas_de_trabajo.html" class="btn-floating btn-large waves-effect waves-light red"><i class="icon-mail-reply"></i></a>
     </div-->
-    <div class="fixed-action-btn" style="bottom: -15px; right: 0px;">
+    <div class="fixed-action-btn" style="bottom: 0px; right: 0px;">
+    <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;"-->
+        <a class="btn-floating btn-large red" href="juntas_de_trabajo.html">
+            <i class="fa fa-mail-reply"></i>
+        </a>
+    </div>
+
+    <!--div class="fixed-action-btn" style="bottom: -15px; right: 0px;">
       <div class="alert alert-danger alertas">
         <a href="juntas_de_trabajo.html" class="white-text"><i class="icon-mail-reply"></i> Volver a la página anterior</a>
       </div>
-    </div>
-    <!-- Intro image -->
+    </div-->
     <!-- Intro image -->
     <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
@@ -139,6 +143,7 @@
                         <p class="titulo"> Clave de la Junta: {{junta.JUNNUM}}</p>
                         <p class="espacio"> Motivo: {{junta.JUNMOT}}</p>
                         <p class="espacio"> Se llevara a cabo el {{junta.JUNFEC}} a las {{junta.JUNHOR}} hrs en {{junta.JUNLUG}}</p>
+                        <!--span class="card-title activator grey-text text-darken-4">Editar<i class="fa fa-ellipsis-h right"></i></span-->
                         <span class="card-title activator grey-text text-darken-4">Editar<i class="fa fa-ellipsis-h right"></i></span>
                         <!--a href="#"></a-->
                     </div>
@@ -152,31 +157,31 @@
                                     <br-->
                                     <label>Clave de la Junta</label>
                                     <div class="input-field">
-                                        <i class="icon-briefcase prefix"></i>
+                                        <i class="mdi-communication-vpn-key prefix"></i>
                                         <input type="text" class="validate" ng-model="junta.JUNNUM">
                                     </div>
                                     <label>Motivo de la Junta</label>
                                     <div class="input-field">
-                                        <i class="icon-pencil prefix"></i>
+                                        <i class="mdi-editor-mode-edit prefix"></i>
                                         <textarea class="materialize-textarea report-body" ng-model="junta.JUNMOT"></textarea>
                                     </div>
                                     <label>Fecha de la Junta</label>
                                     <div class="input-field">
-                                        <i class="icon-calendar prefix"></i>
+                                        <i class="mdi-editor-insert-invitation prefix"></i>
                                         <input id="fec" type="text" class="datepicker" ng-model="junta.JUNFEC">
                                     </div>
                                     <label>Hora de la Junta</label>
                                     <div class="input-field">
-                                        <i class="icon-time prefix"></i>
+                                        <i class="mdi-editor-insert-invitation prefix"></i>
                                         <input type="text" class="validate" id="hora" ng-model="junta.JUNHOR">
                                     </div>
                                     <label>Lugar a realizar la Junta</label>
                                     <div class="input-field">
-                                        <i class="icon-flag prefix"></i>
+                                        <i class="mdi-maps-navigation prefix"></i>
                                         <input type="text" class="validate" ng-model="junta.JUNLUG">
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-primary waves-effect waves-light">Actualizar Información</button>
+                                    <div class="center">
+                                        <button type="submit" class="btn blue btn-primary waves-effect waves-light">Actualizar Información</button>
                                     </div>
                                 </form>
                                 <hr>
@@ -207,9 +212,13 @@
       format:'H:i',
       step:60
     });
-
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy'
-    });
+    $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            min:new Date(),
+            firstDay: 1,
+            format: 'dd/mm/yyyy',
+            formatSubmit: 'dd/mm/yyyy'
+        });
 </script>
 </html>

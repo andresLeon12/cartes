@@ -130,13 +130,13 @@
                 <div class="card hoverable">
                     <div class="card-image">
                         <div class="view overlay hm-white-slight z-depth-1">
-                            <p class="titulo"> Orden del Dia de la Junta {{junta.JUNNUM}}</p>
+                            <p class="espacio center"> Orden del Dia de la Junta {{junta.JUNNUM}}</p>
                             <!--p>1._ a</p>
                             <p>2._ b</p>
                             <div class="mask waves-effect activator"></div-->
                         </div>
                     </div>
-                    <a href="#" class='btn teal white-text' id="open_modal">Nuevo Punto de la Orden del dia</a>
+                    <a href="#" class='btn blue white-text' id="open_modal"><i class="mdi-editor-mode-edit"></i> Nuevo Punto de la Orden del dia</a>
                     <div class="card-content">
                         <!--p ng-repeat="orden in listOrden">
                             {{orden.ORDCON}}._ {{orden.ORDDES}}<br>
@@ -153,32 +153,12 @@
                                 <div class="dropdown secondary-content">
                                     <a href="#" class="dropdown-toggle" data-toggle='dropdown'><i class="small mdi-navigation-more-vert right"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-right estiloMenuOrden" style="">
-                                        <li style=""><a href="#" id="actualizar" ng-click="openModalUpdate(orden._id)"><i class="icon-pencil"></i> Editar</a></li>
-                                        <li><a href="#" id="eliminar"  ng-click="openModalDelete(orden._id)"> Eliminar</a></li>
+                                        <li style=""><a href="#" id="actualizar" ng-click="openModalUpdate(orden._id)"><i class="mdi-editor-mode-edit prefix"></i> Editar</a></li>
+                                        <li><a href="#" id="eliminar"  ng-click="openModalDelete(orden._id)"><i class="mdi-action-delete"></i> Eliminar</a></li>
                                     </ul>
                                 </div>
-                                <!--<div class="dropdown secondary-content">
-                                    <a href="#" class="dropdown-toggle" data-toggle='dropdown'><i class="small mdi-navigation-more-vert right"></i></a>
-                                    <ul class="dropdown-menu dropdown-menu-right estiloMenuOrden" style="">
-                                        <li style=""><a href="#" id="actualizar" ng-click="openModalUpdate(orden._id)"><i class="icon-pencil"></i> Editar Punto</a></li>
-                                        <li><a href="#" id="eliminar" class="third-content" ng-click="openModalDelete(orden._id)"><i class="icon-trash"></i> Eliminar Punto</a></li>
-                                    </ul>
-                                </div>-->
-                                <!--a href="#" id="actualizar" class="secondary-content" ng-click="openModalUpdate(orden._id)">
-                                    <i class="icon-pencil icon-2x"></i>
-                                </a>
-                                <a href="#" id="eliminar" class="third-content" ng-click="openModalDelete(orden._id)">
-                                    <i class="icon-trash icon-2x"></i>
-                                </a-->
                             </li>
                         </ul>
-                        <hr>
-                        <!--span class="card-title activator grey-text text-darken-4"><i class="icon-pencil icon-large"></i></span-->
-                        <span class="card-title activator grey-text text-darken-4" style="font-size:11pt;">Ver los Invitados de la Junta <i class="icon-eye-open"></i></span>
-                        <!--a href="#" class="card-title activator grey-text text-darken-4">a</a-->
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4" style="font-size:13pt;">Invitados a la Junta {{}}<i class="icon-remove right"></i></span>
                         <hr>
                     </div>
                 </div>
@@ -210,7 +190,7 @@
                       <input id="num" ng-model="ordenN.ORDCON" autocomplete='off' autofocus="on" type="number" min="1" required>
                     </div-->
                     <div class="input-field">
-                      <i class="icon-pencil prefix"></i>
+                      <i class="mdi-editor-mode-edit prefix"></i>
                       <label for="motivo" class="center-align grey-text">Descripción del punto de la Orden del Día</label>
                       <textarea id="motivo" class="materialize-textarea" ng-model="ordenN.ORDDES" required></textarea>
                       <!--input autocomplete='off' id="motivo" ng-model="juntaN.JUNMOT" type="text" required-->
@@ -228,23 +208,6 @@
 </div>
 
 <div ng-repeat="orden in listOrden">
-    <!--div class="modal fade" id="{{orden._id}}-Delete" role="dialog">
-        <div class="modal-dialog">                      
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Eliminar punto {{orden.ORDDES}}</h4>
-                </div>
-                <div class="modal-body">
-                    <p>&iquest;Realmente desea eliminar el punto <b>{{orden.ORDDES}}</b>?</p>
-                </div>
-                <div class="modal-footer">
-                  <a class="mdi-navigation-close right modal-action modal-close wavs-effects wavs-green btn-flat" data-dismiss="modal">No, cancelar</a>
-                  <a href="#" class="wavs-effects wavs-green btn-flat" data-dismiss="modal" ng-click="deleteOrden(orden._id)"><i class="mdi-action-delete"></i>Si, lo deseo eliminar</a>
-                </div>
-            </div>                        
-        </div>
-    </div-->
     <div id="{{orden._id}}-Delete" class="modal bottom-sheet">
         <div class="modal-content">
           <div class="row">
@@ -270,17 +233,10 @@
                   </div>
                     <!--p>&iquest;Realmente desea eliminar la Junta <b>{{j.JUNNUM}}</b>?</p-->
                     <form class="form-horizontal" role="form" ng-submit="updateOrden(orden)">
-                        <!--div class="row">
-                            <label for="num"  class="center-align grey-text">Consecutivo</label>
-                            <div class="input-field">
-                                <i class="icon-briefcase prefix"></i>
-                                <input id="num" ng-model="orden.ORDCON" autocomplete='off' autofocus="on" type="number" min="1" required>
-                            </div>
-                        </div-->
                         <div class="row">
                             <label class="center-align grey-text espacio">Descripción del punto de la Orden del Día</label>
                             <div class="input-field">
-                                <i class="espacio icon-pencil prefix"></i>
+                                <i class="mdi-editor-mode-edit prefix"></i>
                                 <textarea class="espacio materialize-textarea" autofocus="on" ng-model="orden.ORDDES" required></textarea>
                             </div>
                         </div>

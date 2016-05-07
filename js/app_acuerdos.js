@@ -9,6 +9,11 @@ $(document).on("click","#open_Modal", function(){
 	$("#abrir_Modal").openModal()// Abrimos la ventana
 });
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../../index.html'
+})
+
 app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) {
 	var lista_ordenes = [];
 	var usuario = localStorage.getItem("usuario")
@@ -54,6 +59,7 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
     }
 	$scope.nuevoAcuerdo = function(){
         //alert("empresa "+empresa+" idJ "+id+" idO "+idO);
+        $("#errorAcuerdo").empty();
 		$scope.acuerdoN.ACUIDC = empresa;
 		$scope.acuerdoN.ACUPUN = idO;
 		$scope.acuerdoN.ACUJUN = id;
@@ -143,6 +149,7 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
                 $(".card-reveal").fadeOut()
                 //getJuntaUnica(); // Actualizamos la lista de ToDo's
                 getAcuerdoByOrden();
+                getOrdenUnica();
             }
         });
     }
@@ -175,8 +182,8 @@ app.controller('acuerdoController', ['$scope', '$http', function($scope, $http) 
 				//$().toastmessage('showSuccessToast', 'Acuerdo Eliminado Correctamente');
 				//$('#'+id+"-Delete").modal('hide');
 				$('#'+id+"-Delete").closeModal();
-				//$scope.junta = {}
 				getAcuerdoByOrden();
+                getOrdenUnica();
 			}
 		});
     }

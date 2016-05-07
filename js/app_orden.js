@@ -8,6 +8,11 @@ $(document).on("click","#open_modal", function(){
 	$("#abrir_modal").openModal()// Abrimos la ventana
 });
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../../index.html'
+})
+
 app.controller('ordenController', ['$scope', '$http', function($scope, $http) {
 		//alert("asasdsadasdsadasdas");
         var nuevaClave = 0;

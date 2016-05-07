@@ -9,7 +9,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
     <!-- Materialize core CSS -->
-    <link href="../../css/materialize.min.css" rel="stylesheet">
+    <link href="../../css/materialize.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -135,8 +135,10 @@
             <div class="col-md-12">
                 <!--Card Reveal-->
                 <div class="card-panel">
+                    <div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> Compruebe que los Acuerdos esten bien y cree la minuta de Acuerdos.</div>
                     <div class="panel-group" id="accordion">
-                        <p class="titulo"> Minuta de Acuerdos por puntos</p>
+                        <!--p class="titulo"> Minuta de Acuerdos por puntos</p-->
+                        <p class="espacio center">Minuta de Acuerdos por puntos de la Orden del Día de la Junta: {{junta.JUNNUM}}</p>
                         <div class="panel panel-default" ng-repeat="orden in listOrden">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -155,24 +157,22 @@
                                                     <!--img src="../../img/junta.png" class="img-thumbnail"/-->
                                                 </i>
                                                 <p>{{orden.ORDCON}}.{{a.ACUCON}}._ {{a.ACUDES}}<br>
-                                                Presupuesto: ${{a.ACUPRE}}<br>
-                                                Fecha Limite: {{a.ACUTIM}}<br>
-                                                Entregable: {{a.ACUENT}}<br>
-                                                <!--Encargado: {{a.ACUEMP}}<br-->
+                                                - Presupuesto: ${{a.ACUPRE}}<br>
+                                                - Fecha Limite: {{a.ACUTIM}}<br>
                                                 <div ng-repeat="d in directivos">
-                                                    <b ng-if="d._id == a.ACUEMP">Encargado(a):{{d.EMPNOM}}</b>
+                                                    - <b ng-if="d._id == a.ACUEMP">Encargado(a):{{d.EMPNOM}}</b>
                                                 </div>
                                                 </p>
                                                 <hr>
                                                 <div class="dropdown secondary-content" ng-if="junta.JUNSTA=='C'">
                                                   <a href="#" class="dropdown-toggle" data-toggle='dropdown'><i class="small mdi-navigation-more-vert right"></i></a>
-                                                  <ul class="dropdown-menu dropdown-menu-right" style="">
-                                                    <li style=""><a href="#" ng-click="openModalUpdate(a._id)"><i class="icon-pencil"></i> Editar Junta</a></li>
+                                                  <ul class="dropdown-menu dropdown-menu-right estiloMenu2" style="">
+                                                    <li style=""><a href="#" ng-click="openModalUpdate(a._id)"><i class="mdi-editor-mode-edit prefix"></i> Editar Acuerdo</a></li>
                                                     <!--li><a href="../orden/nueva_orden.html?id={{j._id}}"><i class="icon-plus"></i> Crear Orden</a></li>
                                                     <li><a href="invitarEmpleados.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="icon-plus"></i> Invitar Empleados</a></li-->
                                                     <li>
                                                       <a href="#" id="eliminar" class="" ng-click="openModalDelete(a._id)">
-                                                        <i class="icon-trash"></i> Eliminar Junta
+                                                        <i class="mdi-action-delete"></i> Eliminar Acuerdo
                                                       </a>
                                                     </li>
                                                   </ul>
@@ -189,19 +189,22 @@
                         </div>
                     </div>
                     <!--a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Enviar Acuerdos y Cerrar Junta</a-->
-                    <div ng-if="junta.JUNSTA == 'C'"><!-- En proceso -->
-                        <a href="#" id="open_Modal" class="btn btn-primary">Crear Minuta y Cerrar Junta</a>
+                    <div ng-if="junta.JUNSTA == 'C'" class="text-center"><!-- En proceso -->
+                        <a href="#" id="open_Modal" class="btn btn-primary"><i class="fa fa-folder"></i> Crear Minuta y Cerrar Junta</a>
                     </div>
-                    <!--div ng-if="junta.JUNSTA == 'O'">
-                        <a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Crear Minuta y Cerrar Junta</a>
-                    </div-->
+                    <div ng-if="junta.JUNSTA == 'O'" class="alert alert-success">
+                        <b>Esta Junta ya esta Acordada</b> <i class="fa fa-thumbs-up"></i>
+                    </div>
                 </div>
 
                 <!--/.Card Reveal-->
             </div>
         </div>
     </section>
-
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
 <div class="modal bottom-sheet" id="abrir_Modal">
         <div class="modal-content">
           <div class="row">
@@ -215,7 +218,7 @@
         <div class="modal-footer">
           <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">No, Cancelar</a>
           <!--a href="#" class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="enviarAcuerdos(allAcuerdosByEmpresa)"><i class="mdi-action-delete"></i>Si, Mis acuerdos y asginaciones de los acuerdos estan bien</a-->
-          <a href="#" class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="cerrarJunta()"><i class="mdi-action-delete"></i>Si, Envíar</a>
+          <a href="#" class="modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="cerrarJunta()"><i class="fa fa-share-square"></i> Si, Envíar</a>
         </div>
 </div>
 <div ng-repeat="acuerdo in allAcuerdosByEmpresa">
@@ -230,7 +233,7 @@
         </div>
         <div class="modal-footer">
           <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">No, Cancelar</a>
-          <a href="#" class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="deleteAcuerdo(acuerdo._id)"><i class="mdi-action-delete"></i>Si, lo deseo Eliminar</a>
+          <a href="#" class="modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="deleteAcuerdo(acuerdo._id)"><i class="mdi-action-delete"></i>Si, lo deseo Eliminar</a>
         </div>
       </div>
 
@@ -247,12 +250,12 @@
             <div class="row">
                 <label class="center-align grey-text espacio">Descripción del Nuevo Acuerdo</label>
                 <div class="input-field">
-                    <i class="espacio icon-pencil prefix"></i>
+                    <i class="fa fa-pencil prefix"></i>
                     <textarea class="materialize-textarea" autofocus="on" ng-model="acuerdo.ACUDES" required></textarea>
                 </div>
             </div>
             <div class="row">
-                <label for="num"  class="center-align grey-text">Directivo a Cargo</label>
+                <label for="num"  class="center-align grey-text"><i class="fa fa-user"></i> Directivo a Cargo</label>
                 <select class="browser-default" ng-model="acuerdo.ACUEMP" required>
                     <option ng-repeat="d in directivos" value="{{d._id}}">{{d.nombreC}}</option>
                 </select>
@@ -260,26 +263,26 @@
             <div class="row">
                 <label class="center-align grey-text">Presupuesto</label>
                 <div class="input-field">
-                    <i class="icon-briefcase prefix"></i>
+                    <i class="fa fa-money prefix"></i>
                     <input ng-model="acuerdo.ACUPRE" autocomplete='off' autofocus="on" type="number" min="1" required>
                 </div>
             </div>
-            <div class="row">
+            <!--div class="row">
                 <label class="center-align grey-text">Entregable</label>
                 <div class="input-field">
                     <i class="icon-briefcase prefix"></i>
                     <input ng-model="acuerdo.ACUENT" autocomplete='off' autofocus="on" type="text" required>
                 </div>
-            </div>
+            </div-->
             <div class="row">
                 <label for="num"  class="center-align grey-text">Fecha Limite</label>
                 <div class="input-field">
-                    <i class="icon-briefcase prefix"></i>
+                    <i class="fa fa-calendar prefix"></i>
                     <input ng-model="acuerdo.ACUTIM" id="fecU" autocomplete='off' class="datepicker" autofocus="on" type="text" required>
                 </div>
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Crear Acuerdo</button>
+                <button type="submit" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Editar Acuerdo</button>
             </div>
         </form>
                 </div>

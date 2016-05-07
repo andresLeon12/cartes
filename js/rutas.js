@@ -29,13 +29,13 @@ app.controller('loginController', function($scope, $http){
 			if(!datos.type){
 				$scope.mensaje = datos.data;
 				$("#error").empty();
-				$("#error").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
+				$("#error").append('<div style="color:red;font-weight:bolder;"><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
 				//$("#error").append("<div class='yellow center-align'><i class='mdi-alert-warning'></i> No estas autorizado para ingresar.</div>");
 			}else{
 				if(typeof(Storage) !== "undefined") {
 					// Alamcenamos la información del usuario
 					localStorage.setItem("usuario", JSON.stringify(datos.data));
-					localStorage.setItem("empresa", $scope.datos.empresa);
+					//localStorage.setItem("empresa", $scope.datos.empresa);
 					//localStorage.setItem("empresa", $scope.datos.EMPRFC);
 				}
 				//alert("puesto old "+datos.data.puesto+" puesto new "+datos.data.EMPPUE)
@@ -57,13 +57,13 @@ app.controller('loginController', function($scope, $http){
 						}
 			        }else{
 						$("#error").empty();
-						$("#error").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>ha ocurrido un error al procesar los datos. Inténtelo nuevamente. Verifique su conexión de red!.</div>');        	
+						$("#error").append('<div style="color:red;font-weight:bolder;"><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
 			        }
 			    });
 			}
 		}).error(function(data, status, headers, config){
-			$("#msjError").empty();
-			$("#msjError").append('<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>Error!...</strong>ha ocurrido un error al procesar los datos. Inténtelo nuevamente! 3.</div>');
+			$("#error").empty();
+			$("#error").append('<div style="color:red;font-weight:bolder;"><strong>Error!...</strong>no esta registrado o ingreso un dato erroneo. Verifique!.</div>');
 		})
 	}
 });

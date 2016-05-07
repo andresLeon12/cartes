@@ -8,8 +8,6 @@
     <!-- Hojas de estilos -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
-    <!-- Materialize core CSS -->
-    <link href="../../css/materialize.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -23,6 +21,8 @@
 
     <link rel='stylesheet' type='text/css'href='../../css/classic.time.css'/>
     <link rel='stylesheet' type='text/css' href='../../css/material.css'/>
+    <!-- Materialize core CSS -->
+    <link href="../../css/materialize.css" rel="stylesheet">
     <link href="../../css/styles.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -130,8 +130,15 @@
             <div class="col-md-12">
                 <!--Card Reveal-->
                 <div class="card-panel">
+                    <div ng-if="junta.JUNSTA == 'O'" class="alert alert-info center">
+                        <h6><strong><i class="fa fa-check-square-o"></i> Verificar Acuerdos y Cerrar Junta</strong></h6>
+                    </div>
+                    <div ng-if="junta.JUNSTA == 'A'" class="alert alert-success center">
+                        <h6><strong><i class="fa fa-folder-open"></i> Reporte de los Acuerdos por Puntos de la Orden del Día</strong></h6>
+                    </div>
+                    <span class="card-title grey-text text-darken-4" style="font-size:13pt;">Junta: <b>{{junta.JUNNUM}}</b> <b class="right">{{junta.JUNFEC}}</b></span><br><br>
                     <div class="panel-group" id="accordion">
-                        <p class="titulo"> Minuta de Acuerdos por puntos {{junta.JUNSTA}}</p>
+                        <!--p class="titulo"> Minuta de Acuerdos por puntos {{junta.JUNSTA}}</p-->
                         <div class="panel panel-default" ng-repeat="orden in listOrden">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
@@ -146,17 +153,19 @@
                                     <ul class="collection">
                                         <div ng-repeat="a in allAcuerdosByEmpresa">
                                             <li class="collection-item avatar" ng-if="a.ACUPUN == orden._id">
-                                                <i class='circle blue teal-text text-darken-1'>
-                                                    <!--img src="../../img/junta.png" class="img-thumbnail"/-->
-                                                </i>
+                                                <i ng-if="a.ACUSTA == 'A'" class='circle brown teal-text text-darken-1'></i>
+                                                <i ng-if="a.ACUSTA == 'P'" class='circle green teal-text text-darken-1'></i>
+                                                <i ng-if="a.ACUSTA == 'T'" class='circle blue teal-text text-darken-1'></i>
                                                 <p>{{orden.ORDCON}}.{{a.ACUCON}}._ {{a.ACUDES}}<br>
-                                                Presupuesto: ${{a.ACUPRE}}<br>
-                                                Fecha Limite: {{a.ACUTIM}}<br>
-                                                Entregable: {{a.ACUENT}}<br>
+                                                - Presupuesto: ${{a.ACUPRE}}<br>
+                                                - Fecha Limite: {{a.ACUTIM}}<br>
                                                 <!--Encargado: {{a.ACUEMP}}<br-->
                                                 <div ng-repeat="d in directivos">
-                                                    <b ng-if="d._id == a.ACUEMP">Encargado(a):{{d.EMPNOM}}</b>
+                                                    - <b ng-if="d._id == a.ACUEMP">Encargado(a):{{d.EMPNOM}}</b>
                                                 </div>
+                                                <b ng-if="a.ACUSTA == 'A'" >Status: Acordads y Enviadas</b>
+                                                <b ng-if="a.ACUSTA == 'P'" >Status: En Progreso</b>
+                                                <b ng-if="a.ACUSTA == 'T'" >Status: Terminadas</b>
                                                 </p>
                                                 <hr>
                                             </li>
@@ -171,13 +180,13 @@
                         </div>
                     </div>
                     <!--a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Enviar Acuerdos y Cerrar Junta</a-->
-                    <div ng-if="junta.JUNSTA == 'O'">
-                        <a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Enviar Acuerdos y Cerrar Junta</a>
+                    <div ng-if="junta.JUNSTA == 'O'" class="center">
+                        <a href="#" id="open_Modal" class="btn blue btn-primary waves-effect waves-light"><i class="fa fa-share-square"></i> Enviar Acuerdos y Cerrar Junta</a>
                     </div>
                     <div id="aviso"></div>
-                    <div class="alert alert-success" ng-if="junta.JUNSTA == 'A'">
+                    <!--div class="alert alert-success" ng-if="junta.JUNSTA == 'A'">
                         Se acaba de enviar los acuerdos y cerró la junta
-                    </div>
+                    </div-->
                     <!--div ng-if="junta.JUNSTA == 'O'">
                         <a href="#" id="open_Modal" class="btn btn-primary waves-effect waves-light">Crear Minuta y Cerrar Junta</a>
                     </div-->
@@ -202,7 +211,7 @@
         </div>
         <div class="modal-footer">
           <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">No, Cancelar</a>
-          <a href="#" class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="enviarAcuerdos(allAcuerdosByEmpresa)"><i class="mdi-action-delete"></i>Si, Envíar</a>
+          <a href="#" class="modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="enviarAcuerdos(allAcuerdosByEmpresa)"><i class="fa fa-share-square"></i> Si, Envíar</a>
         </div>
 </div>
 </body>

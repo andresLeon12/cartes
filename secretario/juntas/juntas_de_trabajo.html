@@ -176,57 +176,14 @@
                                     <!--div ng-if="j.JUNSTA == 'F'"><p><b>Status: Cancelado</b></p></div-->
                                   </p>
                                   <hr>
-                                  <!--div ng-if="j.STATORD == 0 && j.STATINV == 0">
-                                    <div ng-if="j.JUNSTA=='C'" class="alert alert-info">
-                                      Empieze por Crear puntos de la orden del dia <a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
-                                    </div>
-                                    <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                      La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                    </div>
-                                  </div-->
-
-                                  <!--div ng-if="j.STATORD == 1 && j.STATINV == 0">
-                                    <div ng-if="j.JUNSTA=='C'" class="alert alert-info">
-                                      Ya tiene una orden del dia, ahora debe de Invitar a Supervisores <a href="invitarEmpleados.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
-                                    </div>
-                                    <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                      La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                    </div>
-                                  </div-->
 
                                   <div ng-if="j.STATORD == 1 && j.STATINV == 1">
-                                    <!--div class="alert alert-info" ng-if="j.JUNSTA=='C'">
-                                      Ya tiene una orden del dia, y ya cuenta con Invitados para la Junta, ahora agregue Acuerdos 
-                                      <a href="../acuerdos/acuerdos.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
-                                    </div>
-                                    <div class="alert alert-success" ng-if="j.JUNSTA=='O'">
-                                      Los acuerdos de la orden del dia de esta junta ya fueron asignados.<hr>
-                                      <strong>Envíe los acuerdos para finalizar por completo la actividad de esta junta</strong>
-                                      <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
-                                    </div-->
-                                    <div class="alert alert-success" ng-if="j.JUNSTA=='A'">
-                                      Los acuerdos de la orden del dia de esta junta ya fueron enviados a los supervisores correspondientes y se Cerró la Junta <i class="icon-thumbs-up icon-2x"></i>.<hr>
+                                   <div class="alert alert-success" ng-if="j.JUNSTA=='A'">
+                                      Los acuerdos de la orden del dia de esta junta ya fueron enviados a los supervisores correspondientes y se cerró la Junta <i class="fa fa-thumbs-up"></i>.<hr>
                                       <strong>Reporte de los Acuerdos</strong>
-                                      <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="fa fa-eye"></i></a>
+                                      <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="fa fa-folder-open"></i></a>
                                     </div>
-                                    <!--div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                      La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                    </div-->
                                   </div>
-
-                                  <!--div ng-if="j.JUNSTA == 'C'">
-                                    <div class="dropdown secondary-content">
-                                      <a href="#" class="dropdown-toggle" data-toggle='dropdown'><i class="small mdi-navigation-more-vert right"></i></a>
-                                      <ul class="dropdown-menu dropdown-menu-right estiloMenu" style="">
-                                        <li><a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="icon-plus"></i> Crear Orden</a></li>
-                                        <li style="" ng-if="j.STATINV != 1"><a href="junta.html?id={{j._id}}"><i class="icon-pencil"></i> Editar Junta</a></li>
-                                        <li><a href="invitarEmpleados.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="icon-plus"></i> Invitar Empleados</a></li>
-                                        <li>
-                                          <a href="#" ng-click="openModalCancel(j._id)"><i class="icon-trash"></i> Cancelar Junta</a>
-                                        </li>
-                                      </ul>
-                                    </div>
-                                  </div-->
                                 </li>
                             </ul>
                           </div>
@@ -242,32 +199,22 @@
                               <li class="collection-item avatar" ng-repeat="j in juntas|filter:busqueda1" ng-if="j.JUNIDE == usuario._id && (j.JUNSTA == 'C' || j.JUNSTA == 'O')">
                               <i ng-if="j.JUNSTA == 'C'" class='circle brown teal-text text-darken-1' ></i>
                               <i ng-if="j.JUNSTA == 'O'" class='circle green teal-text text-darken-1' ></i>
-                              <!--i ng-if="j.JUNSTA == 'A'" class='circle blue teal-text text-darken-1' ></i>
-                              <i ng-if="j.JUNSTA == 'F'" class='circle red teal-text text-darken-1' ></i-->
                                 <p>{{j.JUNNUM}}<br>
                                    A las {{j.JUNHOR}} el {{j.JUNFEC}} en {{j.JUNLUG}}...<br>
                                   <div ng-if="j.JUNSTA == 'C'"><p><b>Status: Creada y en Progreso</b></p></div>
                                   <div ng-if="j.JUNSTA == 'O'"><p><b>Status: Acordada</b></p></div>
-                                  <!--div ng-if="j.JUNSTA == 'A'"><p><b>Status: Asignado y Cerrado</b></p></div>
-                                  <div ng-if="j.JUNSTA == 'F'"><p><b>Status: Cancelado</b></p></div-->
                                 </p>
                                 <hr>
                                 <div ng-if="j.STATORD == 0 && j.STATINV == 0">
                                   <div ng-if="j.JUNSTA=='C'" class="alert alert-info">
                                     Empieze por Crear puntos de la orden del dia <a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
                                   </div>
-                                  <!--div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                  </div-->
                                 </div>
 
                                 <div ng-if="j.STATORD == 1 && j.STATINV == 0">
                                   <div ng-if="j.JUNSTA=='C'" class="alert alert-info">
                                     Ya tiene una orden del dia, ahora debe de Invitar a Supervisores <a href="invitarEmpleados.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
                                   </div>
-                                  <!--div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                  </div-->
                                 </div>
 
                                 <div ng-if="j.STATORD == 1 && j.STATINV == 1">
@@ -281,27 +228,19 @@
                                     <strong>Envíe los acuerdos para finalizar por completo la actividad de esta junta</strong>
                                     <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="fa fa-send"></i></a>
                                   </div>
-                                  <!--div class="alert alert-success" ng-if="j.JUNSTA=='A'">
-                                    Los acuerdos de la orden del dia de esta junta ya fueron enviados a los supervisores correspondientes y se Cerró la Junta <i class="icon-thumbs-up icon-2x"></i>.<hr>
-                                    <strong>Ver los acuerdos enviados</strong>
-                                    <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="icon-eye-open"></i></a>
-                                  </div>
-                                  <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
-                                  </div-->
                                 </div>
                                 <div ng-if="j.JUNSTA == 'C'">
                                   <div class="dropdown secondary-content">
                                     <a href="#" class="dropdown-toggle" data-toggle='dropdown'><i class="small mdi-navigation-more-vert right"></i></a>
                                     <ul class="dropdown-menu dropdown-menu-right estiloMenu" style="">
-                                      <li><a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="icon-plus"></i> Crear Orden</a></li>
-                                      <li style="" ng-if="j.STATINV != 1"><a href="junta.html?id={{j._id}}"><i class="icon-pencil"></i> Editar Junta</a></li>
-                                      <li><a href="invitarEmpleados.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="icon-plus"></i> Invitar Empleados</a></li>
+                                      <li><a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="fa fa-pencil"></i> Crear Orden</a></li>
+                                      <li style="" ng-if="j.STATINV != 1"><a href="junta.html?id={{j._id}}"><i class="fa fa-pencil-square-o"></i> Editar Junta</a></li>
+                                      <li><a href="invitarEmpleados.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="fa fa-user"></i> Invitar Empleados</a></li>
                                       <li>
-                                      <li ng-if="j.JUNSTA=='C'"><a href="../acuerdos/acuerdos.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="icon-plus"></i> Crear acuerdos</a></li>
+                                      <li ng-if="j.JUNSTA=='C'"><a href="../acuerdos/acuerdos.html?id={{j._id}}" ng-if="j.STATINV == 1"><i class="fa fa-file-text"></i> Crear acuerdos</a></li>
                                       <li ng-if="j.JUNSTA=='O'"><a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}" ng-if="j.STATORD == 1"><i class="icon-plus"></i> Enviar acuerdos</a></li>
                                       <li>
-                                        <a href="#" ng-click="openModalCancel(j._id)"><i class="icon-trash"></i> Cancelar Junta</a>
+                                        <a href="#" ng-click="openModalCancel(j._id)"><i class="fa fa-level-down"></i> Cancelar Junta</a>
                                       </li>
                                     </ul>
                                   </div>
@@ -336,7 +275,7 @@
                                     Empieze por Crear puntos de la orden del dia <a href="../orden/orden_del_dia.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
                                   </div-->
                                   <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
+                                    La Junta ha sido <strong>Cancelada </strong> <i class="fa fa-level-down"></i>
                                   </div>
                                 </div>
 
@@ -345,7 +284,7 @@
                                     Ya tiene una orden del dia, ahora debe de Invitar a Supervisores <a href="invitarEmpleados.html?id={{j._id}}"><i class="icon-hand-right"></i></a>
                                   </div-->
                                   <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
+                                    La Junta ha sido <strong>Cancelada </strong> <i class="fa fa-level-down"></i>
                                   </div>
                                 </div>
 
@@ -365,7 +304,7 @@
                                     <a href="../acuerdos/enviarAcuerdos.html?id={{j._id}}"><i class="icon-eye-open"></i></a>
                                   </div-->
                                   <div class="alert alert-danger" ng-if="j.JUNSTA=='F'">
-                                    La Junta ha sido <strong>Cancelada </strong> <i class="icon-level-down"></i>
+                                    La Junta ha sido <strong>Cancelada </strong> <i class="fa fa-level-down"></i>
                                   </div>
                                 </div>
                                 <!--div ng-if="j.JUNSTA == 'C'">
@@ -424,6 +363,9 @@
       </div>
 
     </div>
-
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
 </body>
 </html>

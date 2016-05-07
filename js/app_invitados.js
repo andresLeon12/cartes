@@ -17,6 +17,11 @@ $(document).on("click","#confirmarInv", function(){
     $("#confirmacion").openModal()// Abrimos la ventana
 });
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../../index.html'
+})
+
 //app.controller('secretarioController', ['$scope', '$http', function($scope, $http) {
 app.controller('invitadosController', function($scope, $http){
 	var usuario = localStorage.getItem("usuario")

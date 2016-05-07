@@ -145,16 +145,16 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
                 $scope.estado_de_acuerdo = ''
                 switch($scope.acuerdo.ACUSTA){
                     case 'A': $scope.estado_de_acuerdo = 'Asignado'
-                        $scope.backgroud = "blue"
-                    break;
-                    case 'P': $scope.estado_de_acuerdo = 'En progreso'
                         $scope.backgroud = "brown"
                     break;
-                    case 'D': $scope.estado_de_acuerdo = 'En destiempo'
+                    case 'P': $scope.estado_de_acuerdo = 'En progreso'
                         $scope.backgroud = "green"
                     break;
-                    case 'T': $scope.estado_de_acuerdo = 'Terminado'
+                    case 'D': $scope.estado_de_acuerdo = 'En destiempo'
                         $scope.backgroud = "red"
+                    break;
+                    case 'T': $scope.estado_de_acuerdo = 'Terminado'
+                        $scope.backgroud = "blue"
                     break;
                 }
                 today = get_today()
@@ -383,6 +383,7 @@ app.controller('directivoController', ['$scope', '$http', 'fileUpload', function
                     timeout: 4000
                 };
                 notification.MaterialSnackbar.showSnackbar(data);
+                socket.emit("fin_acuerd",acuerdo);
                 //$().toastmessage('showSuccessToast', "Información del Acuerdo actualizada exitosamente!");
                 $(".card-reveal").fadeOut()
                 $scope.tarea = {}; // Limpiamos el scope

@@ -4,6 +4,11 @@ var url_server = 'http://159.203.128.165:8080/';
 //var url_server = 'http://127.0.0.1:8080/';
 var socket = io.connect(url_server);
 
+$(document).on("click", ".logout", function(){
+    localStorage.removeItem("usuario")
+    window.location.href = '../../index.html'
+})
+
 app.controller('juntaController', ['$scope', '$http', function($scope, $http) {
 
     //----------------------------------------------------
@@ -66,26 +71,29 @@ app.controller('juntaController', ['$scope', '$http', function($scope, $http) {
                 };
                 notification.MaterialSnackbar.showSnackbar(data);
                 //$().toastmessage('showSuccessToast', "Junta Cancelada");
-                getJuntas();
+                //getJuntas();
             }
         });
+        getJuntas();
         $(idCancel).closeModal()// Abrimos la ventana
     }
     // Funcionalidad del controlador
     $scope.nuevaJunta = function() {
         /*$scope.juntaN.JUTHOR = getHora();*/
-
+        //alert($scope.juntaN.JUNFEC);
         //agregar tambien la fecha (en el momento exacto) en la que se registro la junta
         var a_dat = get_today();
         var a_datII = a_dat.split("/");
         var a_dia = a_datII[1] - 1;
         var fecha_register = new Date(a_datII[2],a_dia,a_datII[0]).toISOString();//mes 
+
         $scope.juntaN.JUNCRE = fecha_register;
         $scope.juntaN.JUNIDE = $scope.usuario._id;  
+
         //JUTFEC
-        var fec_junta = document.getElementById('fec').value;
+        //var fec_junta = document.getElementById('fec').value;
         //alert(fec_junta);
-        $scope.juntaN.JUNFEC = fec_junta;
+        //$scope.juntaN.JUNFEC = fec_junta;
         //alert($scope.juntaN.JUNFEC);
         //la fecha del acuerdo se transforma asi, esto para poder hacer los reportes, buscando mas facil la info. en un rango de datos
         var dat = $scope.juntaN.JUNFEC;

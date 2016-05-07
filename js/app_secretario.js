@@ -189,5 +189,5 @@ app.controller('secretarioController', function($scope, $http){
             }
         });
     }
-    
+     
 });

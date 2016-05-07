@@ -16,11 +16,10 @@
     <link href="../../css/style.css" rel="stylesheet">
     <!-- Toast -->
     <link href="../../css/jquery.toastmessage.css" rel="stylesheet">
-    <!-- Calendario -->
-    <link href="../../css/datepicker.css" rel="stylesheet">
-
+    
     <link rel='stylesheet' type='text/css'href='../../css/classic.time.css'/>
     <link rel='stylesheet' type='text/css'href='../../css/material.css'/>
+    <link rel='stylesheet' type='text/css'href='../../css/materialize.css'/>
     <link href="../../css/styles.css" rel="stylesheet">
 
     <!-- Scripts -->
@@ -37,12 +36,11 @@
     <script type="text/javascript" src="../../js/mdb.js"></script>
     <!-- Toast -->
     <script type="text/javascript" src="../../js/jquery.toastmessage.js"></script>
-    <!-- Calendario -->
-    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
-
+    
     <script type='text/javascript'src='../../js/picker.time.js'></script>
     <script type="text/javascript" src="../../cordova.js"></script>
     <script type="text/javascript" src="../../js/material.js"></script>
+    <script type="text/javascript" src="../../js/materialize.min.js"></script>
     <script type="text/javascript" charset="utf-8">
 
     function onLoad() {
@@ -131,14 +129,14 @@
               <form class="form-horizontal" role="form" ng-submit="nuevaJunta()">
                 <div class="row">
                   <div class="input-field">
-                    <i class="icon-briefcase prefix"></i>
+                    <i class="mdi-communication-vpn-key prefix"></i>
                     <label for="num"  class="center-align grey-text">Clave de la Junta</label>
                     <input id="num" ng-model="juntaN.JUNNUM" autocomplete='off' autofocus="on" type="text" onkeyup="" onkeypress="" required>
                   </div>
                 </div>
                 <div class="row">
                     <div class="input-field">
-                      <i class="icon-pencil prefix"></i>
+                      <i class="mdi-editor-mode-edit prefix"></i>
                       <label for="motivo" class="center-align grey-text">Motivo de la Junta</label>
                       <textarea id="motivo" class="materialize-textarea report-body" ng-model="juntaN.JUNMOT" required></textarea>
                       <!--input autocomplete='off' id="motivo" ng-model="juntaN.JUNMOT" type="text" required-->
@@ -146,21 +144,21 @@
                 </div>
                 <div class="row">
                     <div class="input-field">
-                      <i class="icon-calendar prefix"></i>
+                      <i class="mdi-editor-insert-invitation prefix"></i>
                       <label for="fec" class="center-align grey-text">Fecha</label>
                       <input autocomplete='off' type="text" id="fec" class="datepicker" onclick="" ng-model="juntaN.JUNFEC" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field">
-                      <i class="icon-time prefix"></i>
+                      <i class="mdi-editor-insert-invitation prefix"></i>
                       <label for="hora" class="center-align grey-text">Hora</label>
                       <input autocomplete='off' id="hora" ng-model="juntaN.JUNHOR" type="text" required>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field">
-                      <i class="icon-flag prefix"></i>
+                      <i class="mdi-maps-navigation prefix"></i>
                       <label for="lugar" class="center-align grey-text">Lugar</label>
                       <input autocomplete='off' id="lugar" ng-model="juntaN.JUNLUG" type="text" required>
                     </div>
@@ -170,7 +168,7 @@
                   <button type="submit" tabindex="3" class="col-md-12 col-sm-12 col-xs-12 col-lg-12 btn btn-primary btn-rounded waves-effect waves-light">Crear Junta de Trabajo</button> 
                 </div-->
                 <div class="text-center">
-                  <button type="submit" class="btn btn-primary waves-effect waves-light">Crear Junta de Trabajo</button>
+                  <button type="submit" class="btn blue btn-primary waves-effect waves-light">Crear Junta de Trabajo</button>
                 </div>
               </form>
             </div>
@@ -190,9 +188,13 @@
       format:'H:i',
       step:60
     });
-
-    $('.datepicker').datepicker({
-        format: 'dd/mm/yyyy'
-    });
+    $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year
+            min:new Date(),
+            firstDay: 1,
+            format: 'dd/mm/yyyy',
+            formatSubmit: 'dd/mm/yyyy'
+        });
 </script>
 </html>

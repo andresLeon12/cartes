@@ -203,13 +203,13 @@
 									    	<button ng-if='d.TARSTA=="V"' class="btn red white-text" ng-click='rechazar_tarea(d)'>Rechazar</button></td>
 									    </tr>
 									</table>
-									<a href="#" class="btn teal white-text right" id="terminarbtn" ng-if="acuerdo.ACUSTA=='A' && bloqueado">
+									<a href="#" class="btn teal white-text right" id="terminarbtn" ng-if="acuerdo.ACUSTA=='A' && bloqueado == 'false'">
 										He terminado de asignar tareas
 									</a>
-                  <a href="#" class="btn teal white-text right" ng-click="terminarAcuerdo()" ng-if="!bloqueado && acuerdo.ACUSTA!='T'">
+                  <a href="#" class="btn teal white-text right" ng-click="terminarAcuerdo()" ng-if="bloqueado=='true' && acuerdo.ACUSTA!='T'">
                     Terminar acuerdo
                   </a>
-                  <div class="alert alert-success" ng-if="acuerdo.ACUSTA=='T' && !bloqueado">Acuerdo terminado</div>
+                  <div class="alert alert-success" ng-if="acuerdo.ACUSTA=='T'">Acuerdo terminado</div>
 								</div>
                         	</div>
                         </div>
