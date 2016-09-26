@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="es" ng-app='secreto'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CARTES - Nueva Junta</title>
+    <!-- Hojas de estilos -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
+    <!-- Materialize core CSS -->
+    <link href="../../css/materialize.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../css/mdb.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../css/style.css" rel="stylesheet">
+  
+    <!-- Toast -->
+    <link href="../../css/material.css" rel="stylesheet">
+    <!-- Calendario -->
+    <link href="../../css/styles.css" rel="stylesheet">
+    <!-- Scripts -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="../../js/jquery-2.0.0.min.js"></script>
+    <!-- AngularJS -->
+    <script type="text/javascript" src="../../js/angular.min.js"></script>
+    <!-- Script de control -->
+    <script type="text/javascript" src="../../js/socket.io-1.3.7.js"></script>
+    <script type="text/javascript" src="../../js/app_restaurante.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <!-- Material Design Bootstrap -->
+    <script type="text/javascript" src="../../js/mdb.js"></script>
+    <!-- Materialize core JavaScript -->
+    <script type="text/javascript" src="../../js/materialize.min.js"></script>
+    <!-- Toast -->
+    <script type="text/javascript" src="../../js/jquery.toastmessage.js"></script>
+    <!-- Calendario -->
+    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+
+    <script type='text/javascript'src='../../js/material.js'></script>
+    <script type="text/javascript" src="../../cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onOnline, false);
+    }
+
+    // Handle the offline event
+    //
+    function onOffline() {
+      //alert("offline")
+      document.getElementById("online").innerHTML = "<div class='alert alert-danger'>Esperando una conexión de red ...</div>";
+    }
+    function onOnline() {
+      //alert("online")
+      document.getElementById("online").innerHTML = "";
+    }
+    </script>
+
+</head>
+
+<body ng-controller='restauranteController'  class="full-bg-img" onload="onLoad()">
+    <div class="fixed-action-btn" style="bottom: 0px; right: 0px;">
+    <!--div class="fixed-action-btn" style="bottom: 45px; right: 24px;"-->
+        <a class="btn-floating btn-large red" href="restaurante.html">
+            <i class="fa fa-mail-reply"></i>
+        </a>
+    </div>
+    <!-- Intro image -->
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
+        <div class="mdl-layout__header-row">
+        
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <!--<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">Acerca de</li>
+            <li class="mdl-menu__item">Contacto</li>
+            <li class="mdl-menu__item">Aviso de privacidad</li>
+          </ul>-->
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--grey mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="../img/user.png" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span class="mdl-typography--text-capitalize" style="width:80%;margin:8px;">{{usuario.EMPNOM}}</span>
+            
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-typography--text-right">
+              <i class="fa fa-angle-down" role="presentation"></i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="accbtn">
+              <li class="mdl-menu__item">{{empresa.CIANOM}}</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--white">
+          <a class="mdl-navigation__link" href="../inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="../juntas/juntas_de_trabajo.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Juntas</a>
+          <a class="mdl-navigation__link" href="restaurante.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Restaurante</a>
+          <a class="mdl-navigation__link logout" href=""><i class="mdl-color-text--blue-grey-400 fa fa-sign-out" role="presentation"></i>&nbsp;&nbsp;Salir</a>
+        </nav>
+      </div>
+    </div>
+    <!--/.Navbar-->
+    <!-- Contenido -->
+
+    <section>
+        <div class="container">
+        
+          <div class="space-30"></div>
+          <div class="main-wrapper">
+            <!--div class="container-fluid">
+                <div class="row"-->
+                  <br><br>
+                    <div class="card-panel bl-panel hoverable">
+                        <div class="row info-section black-text">
+                           <a href="#" class="left" ng-click="verComanda()"><i class="fa fa-eye">&nbsp;Ver</i></a>
+                           <a href="#" class="right" ng-click="enviarComanda()"><i class="fa fa-send">&nbsp;Enviar</i></a>
+                            <h5 style="margin-left:45px;" class="text-center">Comanda</h5>
+                            Presiona el botón + a lado de los productos para agregarlo a la comanda.
+                        </div>
+                        <!--h5>Mis Juntas</h5-->
+                        <ul class="nav nav-tabs tabs-3">
+                          <li class="active redim"><a ng-click="listarMenu()" data-toggle="tab" href="#menu">Menú del día</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#tortas">Tortas</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#carta">A la carta</a></li>
+                          <!--<li class="redim"><a data-toggle="tab" href="#bebidas">Bebidas</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#postres">Postres</a></li>-->
+                        </ul>
+                        <div class="tab-content card-panel blue-grey lighten-5">
+                            <div id="menu" class="tab-pane active">
+                              <ul class="collection">
+                                <li class="collection-item avatar" ng-repeat="m in menu", ng-if="m.MENTIP == 1 && m.MENEST == 1">
+                                  <p class="titulo"> Platillo: {{m.MENNOM}} ($ {{m.MENPRE}}) </p>
+                                  <p class="tam"> Detalles: {{m.MENDES}}</p>
+                                  <p> Fecha: {{m.MENFEC}} </p>
+                                  <a ng-click="addPlatilloToComanda(m)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div id="tortas" class="tab-pane">
+                              <ul class="collection">
+                                <li class="collection-item avatar" ng-repeat="i in ingredientes", ng-if="i.INGTIP == 1 && i.INGEST == 1">
+                                  <p class="titulo"> Ingrediente: {{i.INGNOM}} ($ {{i.INGPRE}}) </p>
+                                  <p class="tam"> Detalles: {{i.INGDES}}</p>
+                                  <a ng-click="addTortaToComanda(i)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+                                </li>
+                              </ul>
+                            </div>
+                            <div id="carta" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="p in platillos", ng-if="p.PLAEST == 1">
+                                    <p class="titulo"> Platillo: {{p.PLANOM}} ($ {{p.PLAPRE}}) </p>
+                                    <p class="tam"> Detalles: {{p.PLADES}}</p>
+                                    <a ng-click="addCartaToComanda(p)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--<div id="bebidas" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="b in bebidas">
+                                    <p class="titulo"> Bebida: {{b.BEBNOM}} ($ {{b.BEBPRE}}) </p>
+                                    <p class="tam"> Detalles: {{b.BEBDES}}</p>
+                                    <a ng-click="addBebidaToComanda(b)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="postres" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="p in postres">
+                                    <p class="titulo"> Postre: {{p.POSNOM}} ($ {{p.POSPRE}}) </p>
+                                    <p class="tam"> Detalles: {{p.POSDES}}</p>
+                                    <a ng-click="addPostreToComanda(m)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+                                    </li>
+                                </ul>
+                            </div>-->
+                        </div>
+                <!--/div>
+            </div-->
+        </div>
+    </section>
+    <!-- Modals -->
+    <div id="verComanda" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Comanda</h5>
+          </div>
+        </div>
+        <blockquote style="font-size: 1rem;" ng-if="confirmacion==1">
+          Esta comanda será enviada a {{info.EMPNOM}}. Deseas continuar?
+        </blockquote>
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>Comida corrida y a la carta</h4></li>
+          <li class="collection-item avatar" ng-repeat="c in comanda", ng-if="c.tipo == 'menu'">
+            <p class="titulo"> Platillo: {{c.platillo_principal}} - ($ {{c.precio_platillo}}) </p>
+            <p class="titulo"> Guarnición: {{c.guarnicion}} - ({{c.precio_guarnicion}}) </p>
+            <p class="titulo"> Bebida: {{c.bebida}} - ({{c.precio_bebida}}) </p>
+            <p class="titulo"> Postre: {{c.postre}} - ({{c.precio_postre}}) </p>
+            <p>Observaciones: {{c.comentarios}}</p>
+            <p class="tam"> Total: $ {{c.total}}</p>
+          </li>
+        </ul>
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>Tortas</h4></li>
+          <li class="collection-item avatar" ng-repeat="c in comanda", ng-if="c.tipo == 'torta'">
+            <p class="titulo"> Torta: {{c.torta}} - ($ {{c.precio}}) </p>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-if="confirmacion==1" ng-click="finishEnviar()">Enviar</a>
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">Cerrar</a>
+      </div>
+    </div>
+
+    <div id="addGuarnicion" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Agrega la guarnición para {{platillo_act.MENNOM}}</h5>
+          </div>
+        </div>
+        <ul class="collection">
+          <li class="collection-item avatar" ng-repeat="m in menu", ng-if="m.MENTIP == 2 && m.MENEST == 1">
+            <p class="titulo"> Platillo: {{m.MENNOM}} ($ {{m.MENPRE}}) </p>
+            <p class="tam"> Detalles: {{m.MENDES}}</p>
+            <p> Fecha: {{m.MENFEC}} </p>
+            <a ng-click="addGuarnicionToComanda(m)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="addGuarnicionToComanda(null)">No agregar guarnición</a>
+      </div>
+    </div>
+
+    <div id="addBebida" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Agrega la bebida para {{platillo_act.platillo_principal}}</h5>
+          </div>
+        </div>
+        <ul class="collection">
+          <li class="collection-item avatar" ng-repeat="b in bebidas" ng-if="b.BEBEST == 1">
+            <p class="titulo"> Bebida: {{b.BEBNOM}} ($ {{b.BEBPRE}}) </p>
+            <p class="tam"> Detalles: {{b.BEBDES}}</p>
+            <a ng-click="addBebidaToComanda(b)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="addBebidaToComanda(null)">No agregar bebida</a>
+      </div>
+    </div>
+
+    <div id="addPostre" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Agrega el postre para {{platillo_act.platillo_principal}}</h5>
+          </div>
+        </div>
+        <ul class="collection">
+          <li class="collection-item avatar" ng-repeat="p in postres" ng-if="p.POSEST == 1">
+            <p class="titulo"> Postre: {{p.POSNOM}} ($ {{p.POSPRE}}) </p>
+            <p class="tam"> Detalles: {{p.POSDES}}</p>
+            <a ng-click="addPostreToComanda(p)" href="#" class="secondary-content"> <i class="fa fa-plus"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="addPostreToComanda(null)">No agregar postre</a>
+      </div>
+    </div>
+
+    <div id="addComentario" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Deseas agregar un comentario {{platillo_act.platillo_principal}} (opcional)?</h5>
+          </div>
+        </div>
+        <textarea class="textarea" ng-model="platillo_act.comentarios"></textarea>
+      </div>
+      <div class="modal-footer">
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="finishPedido()">Terminar</a>
+      </div>
+    </div>
+
+    <div id="selectOperador" class="modal modal-fixed-footer">
+      <div class="modal-content">
+        <div class="row">
+          <div class="col s12">
+            <h5 class="grey-text">Selecciona el operador al que enviarás la comanda</h5>
+          </div>
+        </div>
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">Persona a cargo</label>
+            <div class="col-sm-12">
+              <select class="browser-default" ng-model="info.responsable" required>
+                <option ng-repeat="d in personas" value="{{d._id}}-{{d.EMPNOM}}">{{d.EMPNOM}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+      <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" ng-click="enviarConfirmacionComanda()" >Continuar</a>
+        <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat" >Cancelar</a>
+      </div>
+    </div>
+    <!--/. Intro image -->
+    <!-- Modal para confirmar eliminar -->
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+</body>
+</html>

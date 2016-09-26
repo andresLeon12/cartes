@@ -1,6 +1,6 @@
 var app = angular.module('secreto', [])
-var url_server = 'http://159.203.128.165:8080/';
-//var url_server = 'http://127.0.0.1:8080/';
+//var url_server = 'http://159.203.128.165:8080/';
+var url_server = 'http://192.168.0.32:3001/';
 /* Controlador de login */
 app.controller('loginController', function($scope, $http){
 	var usuario = localStorage.getItem('usuario')
@@ -67,3 +67,7 @@ app.controller('loginController', function($scope, $http){
 		})
 	}
 });
+
+
+
+//CUPU800825569

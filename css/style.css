@@ -643,3 +643,14 @@ select:disabled {
   .select-dropdown li.optgroup ~ li:not(.optgroup) {
     padding-left: 1rem; }
 /* Fin */
+
+.redim{
+  width: 100%;
+  overflow: hidden;
+  font-size: 1vw;
+}
+
+.contenedor {
+  max-height: 320px;
+  overflow: auto;
+}

@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="es" ng-app='secreto'>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CARTES - Nueva Junta</title>
+    <!-- Hojas de estilos -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../../font-awesome/css/font-awesome.css">
+    <!-- Materialize core CSS -->
+    <link href="../../css/materialize.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../css/mdb.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="../../css/style.css" rel="stylesheet">
+  
+    <!-- Toast -->
+    <link href="../../css/material.css" rel="stylesheet">
+    <!-- Calendario -->
+    <link href="../../css/styles.css" rel="stylesheet">
+    <!-- Scripts -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="../../js/jquery-2.0.0.min.js"></script>
+    <!-- AngularJS -->
+    <script type="text/javascript" src="../../js/angular.min.js"></script>
+    <!-- Script de control -->
+    <script type="text/javascript" src="../../js/socket.io-1.3.7.js"></script>
+    <script type="text/javascript" src="../../js/app_restaurante.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+    <!-- Material Design Bootstrap -->
+    <script type="text/javascript" src="../../js/mdb.js"></script>
+    <!-- Materialize core JavaScript -->
+    <script type="text/javascript" src="../../js/materialize.min.js"></script>
+    <!-- Toast -->
+    <script type="text/javascript" src="../../js/jquery.toastmessage.js"></script>
+    <!-- Calendario -->
+    <script type="text/javascript" src="../../js/bootstrap-datepicker.js"></script>
+
+    <script type='text/javascript'src='../../js/material.js'></script>
+    <script type="text/javascript" src="../../cordova.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    function onLoad() {
+        document.addEventListener("deviceready", onDeviceReady, false);
+    }
+
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        document.addEventListener("offline", onOffline, false);
+        document.addEventListener("online", onOnline, false);
+    }
+
+    // Handle the offline event
+    //
+    function onOffline() {
+      //alert("offline")
+      document.getElementById("online").innerHTML = "<div class='alert alert-danger'>Esperando una conexión de red ...</div>";
+    }
+    function onOnline() {
+      //alert("online")
+      document.getElementById("online").innerHTML = "";
+    }
+    </script>
+
+</head>
+
+<body ng-controller='restauranteController'  class="full-bg-img" onload="onLoad()">
+    <div class="fixed-action-btn vertical click-to-toggle" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red" >
+      <i class="fa fa-ellipsis-v"></i>
+    </a>
+      <ul>
+        <li><a class="btn-floating teal" href="comanda.html"><i class="fa fa-plus"></i></a></li>
+        <li><a class="btn-floating blue" href="../inicio.html"><i class="fa fa-home"></i></a></li>
+      </ul>
+  </div>
+    <!--<div class="fixed-action-btn" style="bottom: -15px; right: 0px;">
+      <div class="alert alert-danger alertas">
+        <a href="nueva_junta.html" class="white-text">Crear Nueva Junta de Trabajo <i class="icon-plus"></i></a>
+      </div>
+    </div>-->
+    <!-- Intro image -->
+    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      <header class="demo-header mdl-layout__header mdl-color--indigo-300 mdl-color-text--white">
+        <div class="mdl-layout__header-row">
+        
+          <div class="mdl-layout-spacer"></div>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <i class="fa fa-ellipsis-v"></i>
+          </button>
+          <!--<ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
+            <li class="mdl-menu__item">Acerca de</li>
+            <li class="mdl-menu__item">Contacto</li>
+            <li class="mdl-menu__item">Aviso de privacidad</li>
+          </ul>-->
+        </div>
+      </header>
+      <div class="demo-drawer mdl-layout__drawer mdl-color--grey mdl-color-text--blue-grey-50">
+        <header class="demo-drawer-header">
+          <img src="../img/user.png" class="demo-avatar">
+          <div class="demo-avatar-dropdown">
+            <span class="mdl-typography--text-capitalize" style="width:80%;margin:8px;">{{usuario.EMPNOM}}</span>
+            
+            <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-typography--text-right">
+              <i class="fa fa-angle-down" role="presentation"></i>
+              <span class="visuallyhidden">Accounts</span>
+            </button>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="accbtn">
+              <li class="mdl-menu__item">{{empresa.CIANOM}}</li>
+            </ul>
+          </div>
+        </header>
+        <nav class="demo-navigation mdl-navigation mdl-color--white">
+          <a class="mdl-navigation__link" href="../inicio.html"><i class="mdl-color-text--blue-grey-400 fa fa-home" role="presentation"></i>&nbsp;&nbsp;Inicio</a>
+          <a class="mdl-navigation__link" href="../juntas/juntas_de_trabajo.html"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Juntas</a>
+          <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 fa fa-group" role="presentation"></i>&nbsp;&nbsp;Restaurante</a>
+          <a class="mdl-navigation__link logout" href=""><i class="mdl-color-text--blue-grey-400 fa fa-sign-out" role="presentation"></i>&nbsp;&nbsp;Salir</a>
+        </nav>
+      </div>
+    </div>
+    <!--/.Navbar-->
+    <!-- Contenido -->
+
+    <section>
+        <div class="container">
+        
+          <div class="space-30"></div>
+          <div class="main-wrapper">
+            <!--div class="container-fluid">
+                <div class="row"-->
+                  <br><br>
+                    <div class="card-panel bl-panel hoverable">
+                        <div class="row info-section text-center black-text">
+                            <h5 style="margin-left:45px;">Modulo de Restaurante</h5>
+                            A continuación te mostramos los productos del restaurante. Presiona el botón + para agregar una comanda.
+                        </div>
+                        <!--h5>Mis Juntas</h5-->
+                        <ul class="nav nav-tabs tabs-5">
+                          <li class="active redim"><a ng-click="listarMenu()" data-toggle="tab" href="#menu">Menú del día</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#tortas">Tortas</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#carta">A la carta</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#bebidas">Bebidas</a></li>
+                          <li class="redim"><a data-toggle="tab" href="#postres">Postres</a></li>
+                        </ul>
+                        <div class="tab-content card-panel blue-grey lighten-5">
+                            <div id="menu" class="tab-pane active">
+                                <ul class="nav nav-tabs tabs-2 grey lighten-3">
+                                    <li class="active redim"><a data-toggle="tab" href="#menusub1">Platillos</a></li>
+                                    <li class="redim"><a data-toggle="tab" href="#menusub2">Guarnicioes</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="menusub1" class="tab-pane active">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar" ng-repeat="m in menu", ng-if="m.MENTIP == 1 && m.MENEST == 1 ">
+                                            <p class="titulo"> Platillo: {{m.MENNOM}} ($ {{m.MENPRE}}) </p>
+                                            <p class="tam"> Detalles: {{m.MENDES}}</p>
+                                            <p> Fecha: {{m.MENFEC}} </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="menusub2" class="tab-pane">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar" ng-repeat="m in menu", ng-if="m.MENTIP == 2 && m.MENEST == 1">
+                                            <p class="titulo"> Platillo: {{m.MENNOM}} ($ {{m.MENPRE}}) </p>
+                                            <p class="tam"> Detalles: {{m.MENDES}}</p>
+                                            <p> Fecha: {{m.MENFEC}} </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="tortas" class="tab-pane">
+                                <ul class="nav nav-tabs tabs-2 grey lighten-3">
+                                    <li class="active redim"><a data-toggle="tab" href="#tortasub1">Principal</a></li>
+                                    <li class="redim"><a data-toggle="tab" href="#tortasub2">Complemento</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="tortasub1" class="tab-pane active">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar" ng-repeat="i in ingredientes", ng-if="i.INGTIP == 1 && i.INGEST == 1">
+                                            <p class="titulo"> Ingrediente: {{i.INGNOM}} ($ {{i.INGPRE}}) </p>
+                                            <p class="tam"> Detalles: {{i.INGDES}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="tortasub2" class="tab-pane">
+                                        <ul class="collection">
+                                            <li class="collection-item avatar" ng-repeat="i in ingredientes", ng-if="i.INGTIP == 2 && i.INGEST == 1">
+                                            <p class="titulo"> Ingrediente: {{i.INGNOM}} ($ {{i.INGPRE}}) </p>
+                                            <p class="tam"> Detalles: {{i.INGDES}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="carta" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="p in platillos" ng-if="p.PLAEST == 1">
+                                    <p class="titulo"> Platillo: {{p.PLANOM}} ($ {{p.PLAPRE}}) </p>
+                                    <p class="tam"> Detalles: {{p.PLADES}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="bebidas" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="b in bebidas" ng-if="b.BEBEST == 1">
+                                    <p class="titulo"> Bebida: {{b.BEBNOM}} ($ {{b.BEBPRE}}) </p>
+                                    <p class="tam"> Detalles: {{b.BEBDES}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="postres" class="tab-pane">
+                                <ul class="collection">
+                                    <li class="collection-item avatar" ng-repeat="p in postres" ng-if="p.POSEST == 1">
+                                    <p class="titulo"> Postre: {{p.POSNOM}} ($ {{p.POSPRE}}) </p>
+                                    <p class="tam"> Detalles: {{p.POSDES}}</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                <!--/div>
+            </div-->
+        </div>
+    </section>
+
+    <!--/. Intro image -->
+    <!-- Modal para confirmar eliminar -->
+    <div ng-repeat="j in juntas">
+      <div id="{{j._id}}-Delete" class="modal bottom-sheet">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s12">
+              <h5 class="grey-text">Eliminar Junta {{j.JUNNUM}}</h5>
+            </div>
+          </div>
+          <p>&iquest;Realmente desea eliminar la Junta <b>{{j.JUNNUM}}</b>?</p>
+        </div>
+        <div class="modal-footer">
+          <a class="mdi-navigation-close modal-action modal-close wavs-effects wavs-green btn-flat">No, Cancelar</a>
+          <a href="#" class="wavs-effects wavs-green btn-flat" ng-click="deleteJunta(j._id)"><i class="mdi-action-delete"></i>Si, lo deseo Eliminar</a>
+        </div>
+      </div>
+
+      <div id="{{j._id}}-Cancel" class="modal bottom-sheet">
+        <div class="modal-content">
+          <div class="row">
+            <div class="col s12">
+              <h5 class="grey-text">&iquest;Realmente desea Cancelar la Junta <b>{{j.JUNNUM}}</b>?</h5>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a class="modal-action modal-close wavs-effects wavs-green btn-flat">No</a>
+          <a href="#" class="wavs-effects wavs-green btn-flat" ng-click="cancelJunta(j._id)">Si</a>
+        </div>
+      </div>
+
+    </div>
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+          <div class="mdl-snackbar__text"></div>
+          <button class="mdl-snackbar__action" type="button"></button>
+        </div>
+</body>
+</html>
